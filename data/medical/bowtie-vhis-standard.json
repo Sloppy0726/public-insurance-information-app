@@ -1,0 +1,52 @@
+{
+  "company": "Bowtie",
+  "company_zh": "保泰人壽保險有限公司",
+  "product_name": "Bowtie VHIS Standard",
+  "product_name_zh": "Bowtie 自願醫保標準計劃",
+  "category": "medical",
+  "currency": "HKD",
+  "plan_type": "VHIS Standard",
+  "certification_no": "S00023-01-000-03",
+  "quote_profile": { "age": 30, "gender": "M", "smoker": false },
+  "annual_premium_by_age": {
+    "30": 1656,
+    "35": 1968,
+    "40": 2304,
+    "45": 2952,
+    "50": 3612,
+    "55": 4308,
+    "60": 5568,
+    "65": 7452
+  },
+  "annual_premium_by_age_female_non_smoker": {
+    "30": 2100,
+    "35": 2460,
+    "40": 2820,
+    "45": 3504,
+    "50": 4212,
+    "55": 4464,
+    "60": 5352,
+    "65": 7080
+  },
+  "annual_limit": 420000,
+  "lifetime_limit": null,
+  "deductible": 0,
+  "room_class": "普通病房",
+  "outpatient": false,
+  "guaranteed_renewal_age": 100,
+  "overseas_coverage": true,
+  "vhis_certified": true,
+  "tax_deductible": true,
+  "source_dataset": {
+    "name": "VHIS Standard Plan Premium Data",
+    "url": "https://www.vhis.gov.hk/public/data/plan-premium.zip",
+    "last_updated": "2026-04-08",
+    "premium_effective_date": "2025-12-29",
+    "main_premium_code": "SMN"
+  },
+  "notes": [
+    "Public seed data from the official VHIS premium dataset.",
+    "Main annual_premium_by_age uses the dataset's SMN premium table; female non-smoker values from SFN are stored separately.",
+    "VHIS Standard Plan outpatient flag is false because it is not general outpatient cover; limited pre/post-confinement and day-case benefits should be modelled separately before UI launch."
+  ]
+}

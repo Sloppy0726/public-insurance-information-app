@@ -1,0 +1,52 @@
+{
+  "company": "AIA",
+  "company_zh": "友邦保險（國際）有限公司",
+  "product_name": "AIA Voluntary Health Insurance Standard Scheme",
+  "product_name_zh": "AIA自願醫保標準計劃",
+  "category": "medical",
+  "currency": "HKD",
+  "plan_type": "VHIS Standard",
+  "certification_no": "S00013-01-000-02",
+  "quote_profile": { "age": 30, "gender": "M", "smoker": false },
+  "annual_premium_by_age": {
+    "30": 2235.2,
+    "35": 2443.2,
+    "40": 2845.6,
+    "45": 3887.2,
+    "50": 4620,
+    "55": 6272.8,
+    "60": 8140.8,
+    "65": 10964.8
+  },
+  "annual_premium_by_age_female_non_smoker": {
+    "30": 3448.8,
+    "35": 3887.2,
+    "40": 4448,
+    "45": 5949.6,
+    "50": 6093.6,
+    "55": 6797.6,
+    "60": 8032.8,
+    "65": 10784.8
+  },
+  "annual_limit": 420000,
+  "lifetime_limit": null,
+  "deductible": 0,
+  "room_class": "普通病房",
+  "outpatient": false,
+  "guaranteed_renewal_age": 100,
+  "overseas_coverage": true,
+  "vhis_certified": true,
+  "tax_deductible": true,
+  "source_dataset": {
+    "name": "VHIS Standard Plan Premium Data",
+    "url": "https://www.vhis.gov.hk/public/data/plan-premium.zip",
+    "last_updated": "2026-04-08",
+    "premium_effective_date": "2025-07-15",
+    "main_premium_code": "SMN"
+  },
+  "notes": [
+    "Public seed data from the official VHIS premium dataset.",
+    "Main annual_premium_by_age uses the dataset's SMN premium table; female non-smoker values from SFN are stored separately.",
+    "VHIS Standard Plan outpatient flag is false because it is not general outpatient cover; limited pre/post-confinement and day-case benefits should be modelled separately before UI launch."
+  ]
+}

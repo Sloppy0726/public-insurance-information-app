@@ -1,0 +1,52 @@
+{
+  "company": "HSBC Life",
+  "company_zh": "滙豐人壽保險（國際）有限公司",
+  "product_name": "HSBC Voluntary Health Insurance Standard Plan",
+  "product_name_zh": "滙豐自願醫保標準計劃",
+  "category": "medical",
+  "currency": "HKD",
+  "plan_type": "VHIS Standard",
+  "certification_no": "S00042-01-000-02",
+  "quote_profile": { "age": 30, "gender": "M", "smoker": false },
+  "annual_premium_by_age": {
+    "30": 2096,
+    "35": 2384,
+    "40": 2995,
+    "45": 3765,
+    "50": 4493,
+    "55": 5836,
+    "60": 7887,
+    "65": 9850
+  },
+  "annual_premium_by_age_female_non_smoker": {
+    "30": 2184,
+    "35": 2490,
+    "40": 3046,
+    "45": 3865,
+    "50": 4978,
+    "55": 6175,
+    "60": 7371,
+    "65": 9164
+  },
+  "annual_limit": 420000,
+  "lifetime_limit": null,
+  "deductible": 0,
+  "room_class": "普通病房",
+  "outpatient": false,
+  "guaranteed_renewal_age": 100,
+  "overseas_coverage": true,
+  "vhis_certified": true,
+  "tax_deductible": true,
+  "source_dataset": {
+    "name": "VHIS Standard Plan Premium Data",
+    "url": "https://www.vhis.gov.hk/public/data/plan-premium.zip",
+    "last_updated": "2026-04-08",
+    "premium_effective_date": "2020-07-20",
+    "main_premium_code": "SMN"
+  },
+  "notes": [
+    "Public seed data from the official VHIS premium dataset.",
+    "Main annual_premium_by_age uses the dataset's SMN premium table; female non-smoker values from SFN are stored separately.",
+    "VHIS Standard Plan outpatient flag is false because it is not general outpatient cover; limited pre/post-confinement and day-case benefits should be modelled separately before UI launch."
+  ]
+}
