@@ -6,11 +6,11 @@ Hong Kong insurance product information and comparison demo built with Next.js.
 
 This project is a Hong Kong insurance information platform.
 
-The goal is to disclose and organize insurance plan information that is difficult for the public to access in one place. The platform normalizes insurance plan data, shows source transparency, compares plans by user-selected criteria, and helps consumers understand products before speaking with an agent.
+The goal is to disclose and organize insurance plan information that is difficult for the public to access in one place. The platform normalizes insurance plan data, shows source transparency, lets users select plans for side-by-side analysis, and helps consumers understand products before speaking with a licensed insurance intermediary.
 
-The project also supports an internal comparison workflow where normalized plan data can be passed to LLMs for structured review and rating. Public-facing outputs should remain informational, explainable, and clearly separated from personal financial advice.
+The product direction is not to rank plans or recommend a "best" plan. Instead, users select a small number of plans, likely two at a time, and the platform passes those selected plans to an LLM analysis workflow. The output should explain each plan's potential strengths, weaknesses, assumptions, risks, and missing data. Public-facing outputs should remain informational, explainable, and clearly separated from personal financial advice.
 
-The platform can also become a discovery channel for insurance agents to reach potential customers, as long as sponsored visibility, ratings, and customer matching are kept separate and properly disclosed.
+The platform can also become a discovery channel for licensed insurance agents through a paid directory subscription. For each plan, the platform may show a directory of agents who indicate that they can discuss that plan. The platform does not directly match users to agents, submit applications, arrange insurance contracts, sell insurance plan placement, or receive compensation tied to policy purchase.
 
 Tagline:
 
@@ -30,23 +30,35 @@ Google Ads is the easiest monetization path and has the lowest operational compl
 
 The downside is that ad revenue will likely be modest unless the platform reaches large traffic volume. Ads may also reduce user trust if they appear too close to sensitive financial comparison content.
 
-Assessment: good secondary revenue stream, not the main business model.
+Assessment: good secondary revenue stream.
 
-### 2. Paid Agent Or Insurer Placement
+### 2. Paid Licensed Agent Directory
 
-Agents or insurers could pay for sponsored placement, meaning their plans or profiles appear more frequently or more prominently. This should not affect ratings, comparison scores, or user-controlled sorting.
+Licensed insurance agents can pay a subscription fee to be listed in the agent directory. For each plan, the platform may show agents who indicate that they can discuss that plan. Users can press a button to view contact information or visit the agent profile.
 
-This model can generate revenue earlier than transaction commissions, but it creates trust and compliance risk. Sponsored placements must be clearly labelled and visually separated from neutral comparison results.
+Subscription pricing may adjust based on measured directory traffic, such as profile views, contact-button clicks, or inquiry volume. This should be framed as a directory subscription and traffic-based subscription adjustment, not as sales commission.
 
-Assessment: viable, but only with strict separation between paid visibility and rating/comparison logic.
+The platform should not charge based on whether a policy is signed, should not take a percentage of premium, should not sell insurance plan placement, and should not describe the fee as commission.
 
-### 3. Successful Match Commission
+Assessment: commercially promising, but medium compliance risk. It is safer if the platform only reveals contact information or links, records traffic events, verifies agent licence information, and does not transfer user personal data unless a separate consent workflow exists.
 
-The platform could match consumers with licensed insurance agents and take a commission when a plan is successfully signed.
+## Agent Directory Disclosure
 
-This has the strongest revenue potential, but also the highest compliance complexity. Matching users to agents, transferring user information, inducing users to buy, or participating economically in a signed policy may move the platform closer to regulated insurance intermediary activity.
+The agent directory should be presented as a paid licensed-agent directory, not as a recommendation engine.
 
-Assessment: strongest commercial model, but should only be built with proper Hong Kong insurance compliance/legal review and a licensed intermediary, broker, agency, or partner structure.
+Suggested section wording:
+
+> Agents listed here are paid directory subscribers. Their inclusion does not affect plan analysis and does not mean the platform recommends them.
+
+For each listed agent, the platform should show:
+
+- IA licence number
+- licence type
+- represented insurer or agency where relevant
+- contact button or profile link
+- clear note that the listing is not a platform recommendation
+
+Directory ordering should be neutral, such as alphabetical order, newest verified first, or random rotation. If the platform ever sells priority placement inside the directory, that specific slot should be separately labelled as a featured directory listing.
 
 ## Compliance Direction
 
@@ -55,11 +67,14 @@ The product should stay in an information, sorting, and simulation posture unles
 Safe wording:
 
 - product data
-- comparison
+- side-by-side comparison
 - user-selected sorting
 - scenario simulation
+- strengths and weaknesses
 - data quality warning
-- sponsored placement
+- paid licensed agent directory
+- directory subscription
+- traffic-based subscription adjustment
 
 Avoid wording such as:
 
@@ -67,6 +82,12 @@ Avoid wording such as:
 - best plan
 - you should buy
 - suitable for your needs
+- matched agent
+- apply through this agent
+- sponsored product ranking
+- paid insurance plan promotion
+- sales commission
+- commission from successful policy signing
 
 Hong Kong Insurance Authority references:
 
@@ -161,7 +182,9 @@ npm run build
 - Remove local absolute source paths before public deployment.
 - Generalize the FWD import pipeline beyond hardcoded local folders.
 - Add more insurers and product categories.
-- Design the internal LLM rating workflow.
-- Add reviewer approval and audit logs for LLM-generated ratings.
-- Decide the commercial and compliance structure before enabling agent matching, lead transfer, or commission sharing.
+- Design the user-selected LLM analysis workflow for two-plan strengths and weaknesses.
+- Add reviewer approval, evidence capture, and audit logs for LLM-generated analysis.
+- Design the paid licensed-agent directory.
+- Verify agent licence numbers, licence type, and represented insurers before publishing agent profiles.
+- Decide privacy and consent handling before collecting or forwarding any user personal data.
 - Add production deployment, monitoring, and CI.
