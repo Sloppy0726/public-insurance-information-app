@@ -47,6 +47,16 @@ type QuoteMatrixRow = {
   notes?: string;
 };
 
+type All40QuoteMatrixRow = {
+  portal_pid?: string;
+  product_name_zh?: string;
+  product_kind?: string;
+  comparison_bucket?: string;
+  all40_status?: string;
+  premium_amount?: number | null;
+  premium_currency?: string;
+};
+
 type BenefitValueRow = {
   product_family_id?: string;
   variant_sku?: string;
@@ -68,6 +78,16 @@ type InventoryData = {
   products: ProductRow[];
   premium_options: PremiumOptionRow[];
   quote_matrix: QuoteMatrixRow[];
+  all_40_product_summary?: Array<{
+    portal_pid?: string;
+    product_name_zh?: string;
+    product_kind?: string;
+    matrix_rows?: number;
+    actual_quote_rows?: number;
+    not_offered_or_no_premium_rows?: number;
+    error_rows?: number;
+  }>;
+  all_40_quote_matrix?: All40QuoteMatrixRow[];
   benefit_values: BenefitValueRow[];
   extraction_qa: QaRow[];
   _metadata?: {
@@ -233,7 +253,11 @@ export default function FwdInventoryPage() {
   const quoteStatuses = countBy(data.quote_matrix, row => row.quote_status);
   const standardStatuses = countBy(data.quote_matrix, row => row.standard_status);
   const quoteBuckets = countBy(data.quote_matrix, row => row.comparison_bucket);
+  const all40Rows = data.all_40_quote_matrix ?? [];
+  const all40Summary = data.all_40_product_summary ?? [];
+  const all40Statuses = countBy(all40Rows, row => row.all40_status);
   const actualQuoteRows = data.quote_matrix.filter(row => row.actual_quote_found);
+  const all40ActualRows = all40Rows.filter(row => row.all40_status === 'actual_quote');
   const discountRows = data.premium_options.filter(row => Boolean(row.discount_available || row.discount_rate || row.discount_amount));
   const benefitVariants = new Set(data.benefit_values.map(row => row.variant_sku).filter(Boolean)).size;
   const coreBuckets = CORE_TERMS.flatMap(term => CORE_MODES.map(mode => `${term}_${mode}`));
@@ -266,6 +290,12 @@ export default function FwdInventoryPage() {
                 FWD Compare
               </Link>
               <Link
+                href="/boc-inventory"
+                className="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:border-slate-500"
+              >
+                BOC Inventory
+              </Link>
+              <Link
                 href="/savings"
                 className="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:border-slate-500"
               >
@@ -283,11 +313,12 @@ export default function FwdInventoryPage() {
       </header>
 
       <main className="mx-auto max-w-7xl px-4 py-5">
-        <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+        <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
           {[
             { label: 'Products', value: data.products.length },
             { label: 'Premium options', value: data.premium_options.length },
             { label: 'Quote matrix', value: data.quote_matrix.length },
+            { label: 'All-40 matrix', value: all40Rows.length },
             { label: 'Benefit rows', value: data.benefit_values.length },
             { label: 'QA flags', value: data.extraction_qa.length },
           ].map(item => (
@@ -351,7 +382,7 @@ export default function FwdInventoryPage() {
                 </div>
               </div>
             </div>
-            <div className="mt-4 grid grid-cols-3 gap-2 text-center text-xs">
+            <div className="mt-4 grid grid-cols-2 gap-2 text-center text-xs sm:grid-cols-4">
               <div className="rounded-lg bg-slate-50 px-3 py-3">
                 <p className="text-xl font-black text-slate-900">{actualQuoteRows.length}</p>
                 <p className="mt-1 text-slate-500">actual quotes</p>
@@ -364,6 +395,54 @@ export default function FwdInventoryPage() {
                 <p className="text-xl font-black text-slate-900">{benefitVariants}</p>
                 <p className="mt-1 text-slate-500">benefit variants</p>
               </div>
+              <div className="rounded-lg bg-slate-50 px-3 py-3">
+                <p className="text-xl font-black text-slate-900">{all40Summary.length}</p>
+                <p className="mt-1 text-slate-500">all-40 products</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-4 grid gap-4 lg:grid-cols-[0.8fr_1.2fr]">
+          <div className="rounded-lg border bg-white p-4 shadow-sm">
+            <h2 className="text-lg font-black">All-40 portal matrix</h2>
+            <div className="mt-3 grid grid-cols-3 gap-2 text-center text-xs">
+              <div className="rounded-lg bg-slate-50 px-3 py-3">
+                <p className="text-xl font-black text-slate-900">{all40Rows.length}</p>
+                <p className="mt-1 text-slate-500">rows</p>
+              </div>
+              <div className="rounded-lg bg-emerald-50 px-3 py-3">
+                <p className="text-xl font-black text-emerald-800">{all40ActualRows.length}</p>
+                <p className="mt-1 text-emerald-700">actual quote</p>
+              </div>
+              <div className="rounded-lg bg-slate-50 px-3 py-3">
+                <p className="text-xl font-black text-slate-900">{all40Summary.length}</p>
+                <p className="mt-1 text-slate-500">products</p>
+              </div>
+            </div>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {Object.entries(all40Statuses).map(([status, count]) => (
+                <span key={status} className="rounded-md bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                  {statusLabel(status)} {count}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-lg border bg-white p-4 shadow-sm">
+            <h2 className="text-lg font-black">All-40 actual quote samples</h2>
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
+              {all40ActualRows.slice(0, 8).map((row, index) => (
+                <div key={`${row.portal_pid}-${row.comparison_bucket}-${index}`} className="rounded-lg bg-slate-50 px-3 py-2 text-sm">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="font-black text-slate-900">{row.product_name_zh}</p>
+                      <p className="mt-0.5 text-xs text-slate-500">{row.portal_pid} · {bucketLabel(row.comparison_bucket ?? 'UNKNOWN')}</p>
+                    </div>
+                    <p className="shrink-0 font-black text-slate-900">{formatMoney(row.premium_amount, row.premium_currency)}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>

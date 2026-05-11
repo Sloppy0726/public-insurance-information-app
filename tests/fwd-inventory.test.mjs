@@ -29,8 +29,10 @@ test('FWD SMART inventory backup keeps the expected source counts', () => {
   assert.equal(inventory.premium_options.length, 57);
   assert.equal(inventory.quote_matrix.length, 135);
   assert.equal(inventory.benefit_values.length, 1019);
-  assert.equal(inventory.extraction_qa.length, 27);
+  assert.equal(inventory.extraction_qa.length, 28);
   assert.equal(inventory.standard_comparison.length, 50);
+  assert.equal(inventory.all_40_product_summary.length, 40);
+  assert.equal(inventory.all_40_quote_matrix.length, 360);
 });
 
 test('FWD SMART inventory covers the core nine comparison buckets separately', () => {
@@ -83,4 +85,16 @@ test('FWD SMART comparison rows include premium and long-term return fields', ()
   assert.equal(fwdFortuneWorld.year_20_surrender_to_paid_pct, 2.863949);
   assert.equal(fwdFortuneWorld.year_30_surrender_to_paid_pct, 5.854641);
   assert.equal(fwdFortuneWorld.benefit_value_rows, 10);
+});
+
+test('FWD SMART all-40 portal matrix keeps status coverage counts', () => {
+  const statusCounts = inventory.all_40_quote_matrix.reduce((counts, row) => {
+    counts[row.all40_status] = (counts[row.all40_status] ?? 0) + 1;
+    return counts;
+  }, {});
+
+  assert.equal(statusCounts.actual_quote, 195);
+  assert.equal(statusCounts.not_offered_or_no_premium, 153);
+  assert.equal(statusCounts.calc_error, 12);
+  assert.equal(inventory.extraction_qa.some(row => row.issue_type === 'all_40_quote_matrix'), true);
 });

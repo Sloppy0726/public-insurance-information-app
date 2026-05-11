@@ -1,0 +1,696 @@
+[
+  {
+    "code": "IBW41",
+    "name": "綻放人生收益壽險計劃(簡易版)",
+    "success": true,
+    "widgetCount": 12,
+    "specialProductPage": "",
+    "reverseCal": true,
+    "fields": [
+      "SmokeFlag",
+      "DateBack",
+      "Currency",
+      "PayIntv",
+      "PayEndYearFlag",
+      "PayEndYear",
+      "InsuYearFlag",
+      "InsuYear",
+      "Amnt",
+      "Prem",
+      "SugFlag6",
+      "WithdrawalService"
+    ]
+  },
+  {
+    "code": "IBW55",
+    "name": "家傳戶曉終身壽險計劃",
+    "success": true,
+    "widgetCount": 9,
+    "specialProductPage": "",
+    "reverseCal": true,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "PayEndYearFlag",
+      "PayEndYear",
+      "InsuYearFlag",
+      "InsuYear",
+      "Amnt",
+      "Prem"
+    ]
+  },
+  {
+    "code": "IBW61",
+    "name": "百年傳承終身保險計劃 II – 精選",
+    "success": true,
+    "widgetCount": 12,
+    "specialProductPage": "",
+    "reverseCal": true,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayEndYear",
+      "PayEndYearFlag",
+      "InsuYear",
+      "InsuYearFlag",
+      "PayIntv",
+      "SugFlag8",
+      "PlanLevel",
+      "Amnt",
+      "Prem",
+      "WithdrawalArea"
+    ]
+  },
+  {
+    "code": "IBW62",
+    "name": "百年傳承終身保險計劃 II – 優越",
+    "success": true,
+    "widgetCount": 12,
+    "specialProductPage": "",
+    "reverseCal": true,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayEndYear",
+      "PayEndYearFlag",
+      "InsuYear",
+      "InsuYearFlag",
+      "PayIntv",
+      "SugFlag8",
+      "PlanLevel",
+      "Amnt",
+      "Prem",
+      "WithdrawalArea"
+    ]
+  },
+  {
+    "code": "IBW64",
+    "name": "百年傳承終身保險計劃 II – 卓越",
+    "success": true,
+    "widgetCount": 12,
+    "specialProductPage": "",
+    "reverseCal": true,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayEndYear",
+      "PayEndYearFlag",
+      "InsuYear",
+      "InsuYearFlag",
+      "PayIntv",
+      "SugFlag8",
+      "SugFlag9",
+      "Amnt",
+      "Prem",
+      "WithdrawalArea"
+    ]
+  },
+  {
+    "code": "IBW65",
+    "name": "薪火傳承環球終身壽險計劃",
+    "success": true,
+    "widgetCount": 10,
+    "specialProductPage": "",
+    "reverseCal": true,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "PayEndYearFlag",
+      "PayEndYear",
+      "InsuYearFlag",
+      "InsuYear",
+      "Amnt",
+      "Prem",
+      "WithdrawalArea"
+    ]
+  },
+  {
+    "code": "IBW66",
+    "name": "鑄富世代環球終身壽險計劃",
+    "success": true,
+    "widgetCount": 10,
+    "specialProductPage": "",
+    "reverseCal": true,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "PayEndYearFlag",
+      "PayEndYear",
+      "InsuYearFlag",
+      "InsuYear",
+      "Amnt",
+      "Prem",
+      "WithdrawalArea"
+    ]
+  },
+  {
+    "code": "IBW68",
+    "name": "寰御安心環球終身保險計劃",
+    "success": true,
+    "widgetCount": 10,
+    "specialProductPage": "",
+    "reverseCal": true,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "PayEndYearFlag",
+      "PayEndYear",
+      "InsuYearFlag",
+      "InsuYear",
+      "Amnt",
+      "Prem",
+      "WithdrawalArea"
+    ]
+  },
+  {
+    "code": "IBW69",
+    "name": "薪粹傳承環球終身保險計劃",
+    "success": true,
+    "widgetCount": 10,
+    "specialProductPage": "",
+    "reverseCal": true,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "PayEndYearFlag",
+      "PayEndYear",
+      "InsuYearFlag",
+      "InsuYear",
+      "Amnt",
+      "Prem",
+      "WithdrawalArea"
+    ]
+  },
+  {
+    "code": "IBE65",
+    "name": "精選目標五年保險計劃",
+    "success": true,
+    "widgetCount": 8,
+    "specialProductPage": "",
+    "reverseCal": false,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "PayEndYearFlag",
+      "PayEndYear",
+      "InsuYearFlag",
+      "InsuYear",
+      "Prem"
+    ]
+  },
+  {
+    "code": "IBE66",
+    "name": "守躍保險計劃",
+    "success": true,
+    "widgetCount": 8,
+    "specialProductPage": "",
+    "reverseCal": false,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "PayEndYearFlag",
+      "PayEndYear",
+      "InsuYearFlag",
+      "InsuYear",
+      "Prem"
+    ]
+  },
+  {
+    "code": "IBN12",
+    "name": "目標三年保險計劃",
+    "success": true,
+    "widgetCount": 9,
+    "specialProductPage": "",
+    "reverseCal": false,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "PayEndYearFlag",
+      "PayEndYear",
+      "InsuYearFlag",
+      "InsuYear",
+      "Amnt",
+      "Prem"
+    ]
+  },
+  {
+    "code": "IBT06",
+    "name": "「安年保」定期人壽保險計劃",
+    "success": true,
+    "widgetCount": 11,
+    "specialProductPage": "",
+    "reverseCal": true,
+    "fields": [
+      "SmokeFlag",
+      "DateBack",
+      "Currency",
+      "PayIntv",
+      "PayEndYearFlag",
+      "PayEndYear",
+      "InsuYearFlag",
+      "InsuYear",
+      "PlanLevel",
+      "Amnt",
+      "Prem"
+    ]
+  },
+  {
+    "code": "IBT17",
+    "name": "自選無憂壽險計劃",
+    "success": true,
+    "widgetCount": 8,
+    "specialProductPage": "",
+    "reverseCal": false,
+    "fields": [
+      "SmokeFlag",
+      "DateBack",
+      "Currency",
+      "PayIntv",
+      "PayEndYearFlag",
+      "PayEndYear",
+      "InsuYearFlag",
+      "InsuYear"
+    ]
+  },
+  {
+    "code": "IBT22",
+    "name": "守護伴您保險計劃",
+    "success": true,
+    "widgetCount": 10,
+    "specialProductPage": "",
+    "reverseCal": true,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "PayEndYearFlag",
+      "PayEndYear",
+      "InsuYearFlag",
+      "InsuYear",
+      "PlanLevel",
+      "Amnt",
+      "Prem"
+    ]
+  },
+  {
+    "code": "IBN13",
+    "name": "非凡即享年金計劃",
+    "success": true,
+    "widgetCount": 8,
+    "specialProductPage": "",
+    "reverseCal": true,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "InsuYear",
+      "InsuYearFlag",
+      "Amnt",
+      "SugFlag6",
+      "Prem"
+    ]
+  },
+  {
+    "code": "IBN14",
+    "name": "中銀人壽延期年金計劃(固定年期)",
+    "success": true,
+    "widgetCount": 9,
+    "specialProductPage": "",
+    "reverseCal": true,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "PayEndYearFlag",
+      "PayEndYear",
+      "InsuYearFlag",
+      "InsuYear",
+      "Amnt",
+      "Prem"
+    ]
+  },
+  {
+    "code": "IBN15",
+    "name": "中銀人壽延期年金計劃(終身)",
+    "success": true,
+    "widgetCount": 10,
+    "specialProductPage": "",
+    "reverseCal": true,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "PayEndYearFlag",
+      "PayEndYear",
+      "InsuYearFlag",
+      "InsuYear",
+      "Amnt",
+      "SugFlag6",
+      "Prem"
+    ]
+  },
+  {
+    "code": "IBC05",
+    "name": "摯守護危疾保險計劃",
+    "success": true,
+    "widgetCount": 9,
+    "specialProductPage": "",
+    "reverseCal": true,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "PayEndYearFlag",
+      "PayEndYear",
+      "InsuYearFlag",
+      "InsuYear",
+      "Amnt",
+      "Prem"
+    ]
+  },
+  {
+    "code": "IBC07",
+    "name": "非凡守護危疾保險計劃",
+    "success": true,
+    "widgetCount": 9,
+    "specialProductPage": "",
+    "reverseCal": true,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "PayEndYearFlag",
+      "PayEndYear",
+      "InsuYearFlag",
+      "InsuYear",
+      "Amnt",
+      "Prem"
+    ]
+  },
+  {
+    "code": "IBC10",
+    "name": "守護未來終身壽險計劃",
+    "success": true,
+    "widgetCount": 10,
+    "specialProductPage": "",
+    "reverseCal": true,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "PayEndYearFlag",
+      "PayEndYear",
+      "InsuYearFlag",
+      "InsuYear",
+      "Amnt",
+      "Prem",
+      "WithdrawalArea"
+    ]
+  },
+  {
+    "code": "IBC11",
+    "name": "危疾188終身壽險計劃",
+    "success": true,
+    "widgetCount": 9,
+    "specialProductPage": "",
+    "reverseCal": true,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "PayEndYearFlag",
+      "PayEndYear",
+      "InsuYearFlag",
+      "InsuYear",
+      "Amnt",
+      "Prem"
+    ]
+  },
+  {
+    "code": "IBC12",
+    "name": "守護伴您保險計劃(附加危疾保障)",
+    "success": true,
+    "widgetCount": 10,
+    "specialProductPage": "",
+    "reverseCal": true,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "PayEndYearFlag",
+      "PayEndYear",
+      "InsuYearFlag",
+      "InsuYear",
+      "PlanLevel",
+      "Amnt",
+      "Prem"
+    ]
+  },
+  {
+    "code": "IBU19",
+    "name": "薈富萬用壽險計劃",
+    "success": true,
+    "widgetCount": 15,
+    "specialProductPage": "RiskInfoIBU19_responsive.html",
+    "reverseCal": false,
+    "fields": [
+      "SmokeFlag",
+      "Currency",
+      "PayIntv",
+      "PremiumPayment",
+      "Prem",
+      "PdaFlag",
+      "StandByFlag3",
+      "PayEndYear",
+      "Amnt",
+      "InsuYear",
+      "PayEndYearFlag",
+      "InsuYearFlag",
+      "WithdrawalAmnt",
+      "WithdrawalStartYear",
+      "WithdrawalPhases"
+    ]
+  },
+  {
+    "code": "IBU32",
+    "name": "盛世傳承萬用壽險計劃 II – 精選",
+    "success": true,
+    "widgetCount": 14,
+    "specialProductPage": "",
+    "reverseCal": true,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "PayEndYear",
+      "PayEndYearFlag",
+      "InsuYear",
+      "InsuYearFlag",
+      "SugFlag8",
+      "SugFlag9",
+      "Amnt",
+      "Prem",
+      "IrregularPremSN",
+      "WithdrawalArea",
+      "ReductionAmnt"
+    ]
+  },
+  {
+    "code": "IBU33",
+    "name": "盛世傳承萬用壽險計劃 II – 優越",
+    "success": true,
+    "widgetCount": 14,
+    "specialProductPage": "",
+    "reverseCal": true,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "PayEndYear",
+      "PayEndYearFlag",
+      "InsuYear",
+      "InsuYearFlag",
+      "SugFlag8",
+      "SugFlag9",
+      "Amnt",
+      "Prem",
+      "IrregularPremSN",
+      "WithdrawalArea",
+      "ReductionAmnt"
+    ]
+  },
+  {
+    "code": "IBU34",
+    "name": "盛世傳承萬用壽險計劃 II – 卓越",
+    "success": true,
+    "widgetCount": 14,
+    "specialProductPage": "",
+    "reverseCal": true,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "PayEndYear",
+      "PayEndYearFlag",
+      "InsuYear",
+      "InsuYearFlag",
+      "SugFlag8",
+      "SugFlag9",
+      "Amnt",
+      "Prem",
+      "IrregularPremSN",
+      "WithdrawalArea",
+      "ReductionAmnt"
+    ]
+  },
+  {
+    "code": "IBU35",
+    "name": "盛世傳承萬用壽險計劃 II – 簡易",
+    "success": true,
+    "widgetCount": 14,
+    "specialProductPage": "",
+    "reverseCal": true,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "PayEndYear",
+      "PayEndYearFlag",
+      "InsuYear",
+      "InsuYearFlag",
+      "SugFlag8",
+      "SugFlag9",
+      "Amnt",
+      "Prem",
+      "IrregularPremSN",
+      "WithdrawalArea",
+      "ReductionAmnt"
+    ]
+  },
+  {
+    "code": "IBL05",
+    "name": "裕悅綻保障投資相連計劃",
+    "success": true,
+    "widgetCount": 11,
+    "specialProductPage": "",
+    "reverseCal": false,
+    "fields": [
+      "SugFlag3",
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "InsuYearFlag",
+      "InsuYear",
+      "Amnt",
+      "Prem",
+      "SugFlag6",
+      "UnscheTopupArea",
+      "WithdrawalArea"
+    ]
+  },
+  {
+    "code": "IBM08",
+    "name": "中銀人壽標準自願醫保",
+    "success": true,
+    "widgetCount": 8,
+    "specialProductPage": "",
+    "reverseCal": false,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "PayEndYearFlag",
+      "PayEndYear",
+      "InsuYearFlag",
+      "InsuYear",
+      "Prem"
+    ]
+  },
+  {
+    "code": "IBM10",
+    "name": "非凡守護靈活自願醫保",
+    "success": true,
+    "widgetCount": 9,
+    "specialProductPage": "",
+    "reverseCal": false,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "PayEndYearFlag",
+      "PayEndYear",
+      "InsuYearFlag",
+      "InsuYear",
+      "PlanLevel",
+      "Prem"
+    ]
+  },
+  {
+    "code": "IBM11",
+    "name": "全數保費回贈住院現金",
+    "success": true,
+    "widgetCount": 9,
+    "specialProductPage": "",
+    "reverseCal": false,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "PayEndYearFlag",
+      "PayEndYear",
+      "InsuYearFlag",
+      "InsuYear",
+      "PlanLevel",
+      "Prem"
+    ]
+  },
+  {
+    "code": "IBA01",
+    "name": "存享保費回贈個人意外保險計劃",
+    "success": true,
+    "widgetCount": 10,
+    "specialProductPage": "",
+    "reverseCal": false,
+    "fields": [
+      "SmokeFlag",
+      "DateBack",
+      "Currency",
+      "PayIntv",
+      "PayEndYearFlag",
+      "PayEndYear",
+      "InsuYearFlag",
+      "InsuYear",
+      "PlanLevel",
+      "Prem"
+    ]
+  },
+  {
+    "code": "IBW67",
+    "name": "月悅出息終身享保險計劃",
+    "success": true,
+    "widgetCount": 11,
+    "specialProductPage": "",
+    "reverseCal": true,
+    "fields": [
+      "SmokeFlag",
+      "CurrencyCode",
+      "PayIntv",
+      "PayEndYearFlag",
+      "PayEndYear",
+      "InsuYearFlag",
+      "InsuYear",
+      "Amnt",
+      "SugFlag6",
+      "Prem",
+      "WithdrawalArea"
+    ]
+  }
+]

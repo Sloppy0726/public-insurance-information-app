@@ -118,10 +118,12 @@ export type ProductMetrics = {
   year5_surrender_loss_usd?: number;
   value_point_count?: number;
   comparison_value_point_count?: number;
+  portal_widget_count?: number;
+  portal_option_count?: number;
 };
 
 export type ProductSource = {
-  kind: 'pdf-proposal' | 'sample-json' | 'official-public-dataset';
+  kind: 'pdf-proposal' | 'sample-json' | 'official-public-dataset' | 'authenticated-portal-inventory';
   batch?: string;
   filename?: string;
   absolute_path?: string;
@@ -136,7 +138,7 @@ export type ProductSource = {
 };
 
 export type ProductDataQuality = {
-  level: 'raw-pdf-extract' | 'sample-proposal' | 'official-public-data';
+  level: 'raw-pdf-extract' | 'sample-proposal' | 'official-public-data' | 'portal-metadata-extract';
   summary: string;
   warnings?: string[];
 };
@@ -159,6 +161,8 @@ export type ProductSummary = {
   deductible?: number | null;
   room_class?: string;
   plan_type?: string;
+  portal_product_code?: string;
+  portal_category_code?: string;
   policy_term?: string | null;
   metrics?: ProductMetrics;
   value_points?: ProductValuePoint[];
@@ -181,6 +185,7 @@ export type ProductCatalog = {
   stats: {
     total: number;
     fwdProposalCount: number;
+    bocPortalCount: number;
     savingsSeedCount: number;
     medicalSeedCount: number;
     byCategory: Record<string, number>;

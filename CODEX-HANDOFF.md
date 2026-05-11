@@ -279,8 +279,10 @@ FWD SMART inventory summary:
 | Premium options | 57 |
 | Quote matrix rows | 135 |
 | Benefit rows | 1,019 |
-| Extraction QA flags | 27 |
+| Extraction QA flags | 28 |
 | Standard comparison rows | 50 |
+| All-40 portal products | 40 |
+| All-40 portal matrix rows | 360 |
 
 Category summary:
 
@@ -294,6 +296,32 @@ Category summary:
 
 Important caveat:
 - The repo copy redacts DOB/HKID/phone/email/address-style fields and DOB snippets before GitHub push. Do not commit the raw scratch files under `/Users/book/Documents/AI SME /outputs/fwd_smart_inventory_2026-05-11/` because they include portal debug outputs and profile test data.
+
+## Latest Codex continuation — 2026-05-11 BOC/FWD sync
+
+Completed:
+- Pulled/cloned `Sloppy0726/public-insurance-information-app` into:
+  `/Users/book/Documents/AI SME /public-insurance-information-app`
+- Re-imported the latest local FWD SMART inventory from:
+  `/Users/book/Documents/AI SME /outputs/fwd_smart_inventory_2026-05-11/`
+- The FWD repo JSON now includes the all-40 portal matrix:
+  - `all_40_product_summary`: 40 products
+  - `all_40_quote_matrix`: 360 rows
+  - status counts: 195 actual quotes, 153 not-offered/no-premium rows, 12 calc errors
+- Added BOC Life portal inventory backup from:
+  `/Users/book/Documents/AI SME /outputs/boc_life_inventory_2026-05-11/`
+- Saved public-safe BOC backup files in Git:
+  - `data/boc/boc-life-portal-products-2026-05-11.json`
+  - `data/boc/boc-life-portal-ui-widgets-2026-05-11.json`
+  - `data/boc/boc-life-portal-ui-summary-2026-05-11.json`
+  - `data/boc/BOC-Life-Proposal-Portal-Inventory-2026-05-11.xlsx`
+- Added `scripts/import-boc-inventory.mjs`.
+- Added `/boc-inventory` for BOC product/category/UI-field coverage.
+- Added 34 BOC Life portal metadata products to `/products`, bringing the unified catalog total to 55 products.
+- Added tests for BOC inventory safety/counts and product catalog inclusion.
+
+Important caveat:
+- BOC data is product/UI metadata only. It should not be treated as a quote comparison table until premium and illustration values are captured and QAed.
 
 ## Tech stack
 - Next.js 16.2.6 (App Router), React 19.2.4, TypeScript 5, Tailwind CSS 4

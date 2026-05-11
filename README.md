@@ -20,7 +20,7 @@ Tagline:
 
 Current status: working internal MVP/demo.
 
-The app already has a product library, savings comparison/X-Ray view, FWD proposal extraction output, FWD inventory QA views, and compliance disclosure pages. It is suitable for demo and internal validation, but not ready for public launch until extracted PDF tables are manually QAed and the compliance model is reviewed.
+The app already has a product library, savings comparison/X-Ray view, FWD proposal extraction output, FWD inventory QA views, BOC Life portal inventory backup/views, and compliance disclosure pages. It is suitable for demo and internal validation, but not ready for public launch until extracted PDF tables are manually QAed and the compliance model is reviewed.
 
 ## Business Model Evaluation
 
@@ -118,6 +118,7 @@ npm run build
 - `/` dashboard overview
 - `/fwd-inventory` FWD SMART inventory coverage/QA viewer
 - `/fwd-compare` FWD premium and surrender/paid comparison viewer
+- `/boc-inventory` BOC Life portal product/UI metadata viewer
 - `/products` product database
 - `/savings` savings comparison and X-Ray
 - `/compliance` compliance disclosure
@@ -128,10 +129,20 @@ npm run build
 - Sanitised Excel: `data/fwd/fwd-smart-inventory-2026-05-11.xlsx`
 - Import script: `scripts/import-fwd-inventory.py`
 
+## Current BOC Life Inventory Backup
+
+- Sanitised products JSON: `data/boc/boc-life-portal-products-2026-05-11.json`
+- Sanitised UI widgets JSON: `data/boc/boc-life-portal-ui-widgets-2026-05-11.json`
+- Sanitised UI summary JSON: `data/boc/boc-life-portal-ui-summary-2026-05-11.json`
+- Sanitised Excel: `data/boc/BOC-Life-Proposal-Portal-Inventory-2026-05-11.xlsx`
+- Import script: `scripts/import-boc-inventory.mjs`
+
 ## Current Data Coverage
 
 - FWD generated proposal batch: 13 products
 - FWD inventory backup: 14 products
+- FWD all-40 portal matrix: 40 products, 360 quote rows
+- BOC Life portal inventory: 34 products across 10 categories
 - FWD quote matrix rows: 135
 - FWD premium options: 57
 - FWD benefit value rows: 1,019
@@ -140,6 +151,7 @@ npm run build
 - Savings seed samples: 3 products
 - VHIS medical seed data: 5 products
 - Product catalog total: 21 products
+- Product catalog total with BOC portal metadata: 55 products
 
 ## Changelog
 
@@ -148,6 +160,10 @@ npm run build
 - Added FWD SMART inventory backup.
 - Added `/fwd-inventory` inventory coverage and QA viewer.
 - Added `/fwd-compare` FWD premium and surrender/paid comparison viewer.
+- Added FWD all-40 portal quote matrix backup.
+- Added BOC Life portal product/UI metadata backup.
+- Added `/boc-inventory` inventory coverage and UI-field viewer.
+- Added BOC Life portal products to `/products`.
 - Added consumer budget cohort logic for FWD comparison.
 - Added tests for FWD comparison, inventory backup, quote buckets, product data, and savings selection.
 

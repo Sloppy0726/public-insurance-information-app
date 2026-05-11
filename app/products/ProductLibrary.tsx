@@ -9,6 +9,7 @@ type Props = {
   stats: {
     total: number;
     fwdProposalCount: number;
+    bocPortalCount: number;
     savingsSeedCount: number;
     medicalSeedCount: number;
     byCategory: Record<string, number>;
@@ -23,9 +24,24 @@ const CATEGORY_LABELS: Record<string, string> = {
   'critical-illness': '危疾',
   annuity: '年金',
   medical: '醫療',
+  'universal-life': '萬用壽險',
+  'investment-linked': '投連壽險',
+  accident: '意外',
+  'income-protection': '入息',
 };
 
-const CATEGORY_ORDER = ['savings', 'life-savings', 'life', 'critical-illness', 'annuity', 'medical'];
+const CATEGORY_ORDER = [
+  'savings',
+  'life-savings',
+  'life',
+  'critical-illness',
+  'annuity',
+  'medical',
+  'universal-life',
+  'investment-linked',
+  'accident',
+  'income-protection',
+];
 
 function categorySortIndex(category: string) {
   const index = CATEGORY_ORDER.indexOf(category);
@@ -65,6 +81,7 @@ function coreAmountLabel(product: ProductSummary) {
 function sourceKindLabel(product: ProductSummary) {
   if (product.source.kind === 'pdf-proposal') return 'PDF抽取';
   if (product.source.kind === 'official-public-dataset') return '公開數據';
+  if (product.source.kind === 'authenticated-portal-inventory') return 'Portal庫存';
   return '樣本數據';
 }
 
@@ -74,6 +91,7 @@ function sourceLabel(product: ProductSummary) {
 
 function qualityTone(product: ProductSummary) {
   if (product.data_quality.level === 'official-public-data') return 'border-emerald-200 bg-emerald-50 text-emerald-700';
+  if (product.data_quality.level === 'portal-metadata-extract') return 'border-indigo-200 bg-indigo-50 text-indigo-700';
   if (product.data_quality.level === 'sample-proposal') return 'border-blue-200 bg-blue-50 text-blue-700';
   return 'border-amber-200 bg-amber-50 text-amber-700';
 }
@@ -99,6 +117,14 @@ function metricItems(product: ProductSummary) {
 
   if (metrics.annuity_monthly_total != null) {
     items.push({ label: '每月年金', value: money(metrics.annuity_monthly_total, product.currency) });
+  }
+
+  if (metrics.portal_widget_count != null) {
+    items.push({ label: 'Portal欄位', value: `${metrics.portal_widget_count}` });
+  }
+
+  if (metrics.portal_option_count != null) {
+    items.push({ label: '下拉選項', value: `${metrics.portal_option_count}` });
   }
 
   if (metrics.projected_irr) {
@@ -159,13 +185,17 @@ export default function ProductLibrary({ products, stats, latestBatchGeneratedAt
             </Link>
             <h1 className="mt-2 text-2xl font-black tracking-normal">產品資料庫</h1>
             <p className="mt-1 text-sm text-slate-500">
-              {stats.total} 個產品 · FWD PDF {stats.fwdProposalCount} 份 · 更新 {formatDate(latestBatchGeneratedAt)}
+              {stats.total} 個產品 · FWD PDF {stats.fwdProposalCount} 份 · BOC portal {stats.bocPortalCount} 個 · 更新 {formatDate(latestBatchGeneratedAt)}
             </p>
           </div>
-          <div className="grid grid-cols-3 gap-2 text-center text-xs">
+          <div className="grid grid-cols-2 gap-2 text-center text-xs sm:grid-cols-4">
             <div className="rounded-lg border bg-slate-50 px-3 py-2">
               <p className="font-black text-lg text-slate-900">{stats.fwdProposalCount}</p>
               <p className="text-slate-500">PDF proposals</p>
+            </div>
+            <div className="rounded-lg border bg-slate-50 px-3 py-2">
+              <p className="font-black text-lg text-slate-900">{stats.bocPortalCount}</p>
+              <p className="text-slate-500">BOC portal</p>
             </div>
             <div className="rounded-lg border bg-slate-50 px-3 py-2">
               <p className="font-black text-lg text-slate-900">{stats.savingsSeedCount}</p>

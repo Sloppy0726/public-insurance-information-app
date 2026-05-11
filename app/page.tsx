@@ -24,7 +24,7 @@ export default function Home() {
               <p className="text-xs font-semibold uppercase tracking-normal text-slate-500">Hong Kong product data</p>
               <h1 className="mt-2 text-3xl font-black tracking-normal">香港保險產品資料庫</h1>
               <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-500">
-                整合 FWD proposal PDFs、現有儲蓄保樣本、VHIS公開醫療數據，先做一個可查、可篩、可追 source 嘅 demo。
+                整合 FWD proposal PDFs、BOC Life portal inventory、現有儲蓄保樣本、VHIS公開醫療數據，先做一個可查、可篩、可追 source 嘅 demo。
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -39,6 +39,12 @@ export default function Home() {
                 className="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:border-slate-500"
               >
                 FWD Inventory
+              </Link>
+              <Link
+                href="/boc-inventory"
+                className="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:border-slate-500"
+              >
+                BOC Inventory
               </Link>
               <Link
                 href="/fwd-compare"
@@ -64,10 +70,11 @@ export default function Home() {
       </header>
 
       <main className="mx-auto max-w-6xl px-4 py-6">
-        <section className="grid gap-3 md:grid-cols-4">
+        <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {[
             { label: '全部產品', value: catalog.stats.total },
             { label: 'FWD PDF', value: catalog.stats.fwdProposalCount },
+            { label: 'BOC portal', value: catalog.stats.bocPortalCount },
             { label: '儲蓄保樣本', value: catalog.stats.savingsSeedCount },
             { label: 'VHIS公開數據', value: catalog.stats.medicalSeedCount },
           ].map(item => (
@@ -78,7 +85,7 @@ export default function Home() {
           ))}
         </section>
 
-        <section className="mt-5 grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+        <section className="mt-5 grid gap-4 lg:grid-cols-[1fr_1fr]">
           <div className="rounded-lg border bg-white p-4 shadow-sm">
             <div className="flex items-baseline justify-between gap-3">
               <h2 className="text-lg font-black">分類覆蓋</h2>
@@ -131,13 +138,41 @@ export default function Home() {
               PDF抽取版會保留 source、頁數、notes；表格數字上線前要逐份 proposal 對返原文。
             </p>
           </div>
+
+          <div className="rounded-lg border bg-white p-4 shadow-sm">
+            <div className="flex items-baseline justify-between gap-3">
+              <h2 className="text-lg font-black">BOC Life portal</h2>
+              <span className="rounded-md bg-indigo-50 px-2 py-1 text-xs font-semibold text-indigo-700">metadata</span>
+            </div>
+            <dl className="mt-4 space-y-3 text-sm">
+              <div className="flex justify-between gap-4">
+                <dt className="text-slate-500">Products</dt>
+                <dd className="font-semibold text-slate-800">{catalog.stats.bocPortalCount}</dd>
+              </div>
+              <div className="flex justify-between gap-4">
+                <dt className="text-slate-500">Categories</dt>
+                <dd className="font-semibold text-slate-800">
+                  {categoryRows.filter(([category]) => catalog.products.some(product => product.company === 'BOC Life' && product.category === category)).length}
+                </dd>
+              </div>
+              <div className="flex justify-between gap-4">
+                <dt className="text-slate-500">Repo JSON</dt>
+                <dd className="max-w-[16rem] truncate text-right font-semibold text-slate-800">
+                  data/boc/boc-life-portal-products-2026-05-11.json
+                </dd>
+              </div>
+            </dl>
+            <p className="mt-4 rounded-lg border border-indigo-200 bg-indigo-50 px-3 py-2 text-xs leading-relaxed text-indigo-800">
+              BOC 目前係產品、分類、UI欄位同下拉選項 metadata；未有 premium / surrender matrix 前，只放入產品資料庫同 inventory viewer。
+            </p>
+          </div>
         </section>
 
         <section className="mt-5 grid gap-3 md:grid-cols-3">
           {[
             {
               title: '現在有',
-              body: '產品清單、FWD SMART inventory、FWD保費/回報比較、分類篩選、source trace、儲蓄保 X-Ray。',
+              body: '產品清單、FWD SMART inventory、BOC Life portal inventory、FWD保費/回報比較、分類篩選、source trace、儲蓄保 X-Ray。',
             },
             {
               title: '下一步',

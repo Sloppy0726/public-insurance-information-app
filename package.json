@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build:data": "node scripts/build-product-data.mjs",
+    "import:boc": "node scripts/import-boc-inventory.mjs",
     "test": "node --test tests/*.test.mjs",
     "build": "next build",
     "start": "next start"

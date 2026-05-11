@@ -1,0 +1,226 @@
+{
+  "source": "BOC Life Sales Portal draft proposal UI session",
+  "extractedAt": "2026-05-11T07:24:39.157Z",
+  "applicantScenario": {
+    "insuredAge": 46,
+    "gender": "男",
+    "smoking": "不吸煙",
+    "staff": "否"
+  },
+  "productCount": 34,
+  "categories": [
+    {
+      "riskTypeName": "終身壽險",
+      "riskTypeCode": "W",
+      "count": 9,
+      "products": [
+        {
+          "name": "綻放人生收益壽險計劃(簡易版)",
+          "code": "IBW41"
+        },
+        {
+          "name": "家傳戶曉終身壽險計劃",
+          "code": "IBW55"
+        },
+        {
+          "name": "百年傳承終身保險計劃 II – 精選",
+          "code": "IBW61"
+        },
+        {
+          "name": "百年傳承終身保險計劃 II – 優越",
+          "code": "IBW62"
+        },
+        {
+          "name": "百年傳承終身保險計劃 II – 卓越",
+          "code": "IBW64"
+        },
+        {
+          "name": "薪火傳承環球終身壽險計劃",
+          "code": "IBW65"
+        },
+        {
+          "name": "鑄富世代環球終身壽險計劃",
+          "code": "IBW66"
+        },
+        {
+          "name": "寰御安心環球終身保險計劃",
+          "code": "IBW68"
+        },
+        {
+          "name": "薪粹傳承環球終身保險計劃",
+          "code": "IBW69"
+        }
+      ]
+    },
+    {
+      "riskTypeName": "儲蓄壽險",
+      "riskTypeCode": "E",
+      "count": 3,
+      "products": [
+        {
+          "name": "精選目標五年保險計劃",
+          "code": "IBE65"
+        },
+        {
+          "name": "守躍保險計劃",
+          "code": "IBE66"
+        },
+        {
+          "name": "目標三年保險計劃",
+          "code": "IBN12"
+        }
+      ]
+    },
+    {
+      "riskTypeName": "定期壽險",
+      "riskTypeCode": "T",
+      "count": 3,
+      "products": [
+        {
+          "name": "「安年保」定期人壽保險計劃",
+          "code": "IBT06"
+        },
+        {
+          "name": "自選無憂壽險計劃",
+          "code": "IBT17"
+        },
+        {
+          "name": "守護伴您保險計劃",
+          "code": "IBT22"
+        }
+      ]
+    },
+    {
+      "riskTypeName": "年金計劃",
+      "riskTypeCode": "N",
+      "count": 3,
+      "products": [
+        {
+          "name": "非凡即享年金計劃",
+          "code": "IBN13"
+        },
+        {
+          "name": "中銀人壽延期年金計劃(固定年期)",
+          "code": "IBN14"
+        },
+        {
+          "name": "中銀人壽延期年金計劃(終身)",
+          "code": "IBN15"
+        }
+      ]
+    },
+    {
+      "riskTypeName": "危疾保險",
+      "riskTypeCode": "C",
+      "count": 5,
+      "products": [
+        {
+          "name": "摯守護危疾保險計劃",
+          "code": "IBC05"
+        },
+        {
+          "name": "非凡守護危疾保險計劃",
+          "code": "IBC07"
+        },
+        {
+          "name": "守護未來終身壽險計劃",
+          "code": "IBC10"
+        },
+        {
+          "name": "危疾188終身壽險計劃",
+          "code": "IBC11"
+        },
+        {
+          "name": "守護伴您保險計劃(附加危疾保障)",
+          "code": "IBC12"
+        }
+      ]
+    },
+    {
+      "riskTypeName": "萬用壽險",
+      "riskTypeCode": "U",
+      "count": 5,
+      "products": [
+        {
+          "name": "薈富萬用壽險計劃",
+          "code": "IBU19"
+        },
+        {
+          "name": "盛世傳承萬用壽險計劃 II – 精選",
+          "code": "IBU32"
+        },
+        {
+          "name": "盛世傳承萬用壽險計劃 II – 優越",
+          "code": "IBU33"
+        },
+        {
+          "name": "盛世傳承萬用壽險計劃 II – 卓越",
+          "code": "IBU34"
+        },
+        {
+          "name": "盛世傳承萬用壽險計劃 II – 簡易",
+          "code": "IBU35"
+        }
+      ]
+    },
+    {
+      "riskTypeName": "投連壽險",
+      "riskTypeCode": "I",
+      "count": 1,
+      "products": [
+        {
+          "name": "裕悅綻保障投資相連計劃",
+          "code": "IBL05"
+        }
+      ]
+    },
+    {
+      "riskTypeName": "醫療保險",
+      "riskTypeCode": "M",
+      "count": 3,
+      "products": [
+        {
+          "name": "中銀人壽標準自願醫保",
+          "code": "IBM08"
+        },
+        {
+          "name": "非凡守護靈活自願醫保",
+          "code": "IBM10"
+        },
+        {
+          "name": "全數保費回贈住院現金",
+          "code": "IBM11"
+        }
+      ]
+    },
+    {
+      "riskTypeName": "意外保險",
+      "riskTypeCode": "A",
+      "count": 1,
+      "products": [
+        {
+          "name": "存享保費回贈個人意外保險計劃",
+          "code": "IBA01"
+        }
+      ]
+    },
+    {
+      "riskTypeName": "入息計劃",
+      "riskTypeCode": "O",
+      "count": 1,
+      "products": [
+        {
+          "name": "月悅出息終身享保險計劃",
+          "code": "IBW67"
+        }
+      ]
+    }
+  ],
+  "_metadata": {
+    "source_folder": "/Users/book/Documents/AI SME /outputs/boc_life_inventory_2026-05-11",
+    "source_json": "boc_products_2026-05-11.json",
+    "source_xlsx": "BOC_Life_Proposal_Portal_Inventory_2026-05-11.xlsx",
+    "sanitized": true,
+    "redaction_rule": "Session identifiers, cookies, credentials, proposal numbers, and browser-only secrets are omitted before public GitHub commit."
+  }
+}
