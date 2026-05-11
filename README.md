@@ -23,6 +23,7 @@ npm run build
 
 - `/` dashboard overview
 - `/fwd-inventory` FWD SMART inventory coverage/QA viewer
+- `/fwd-compare` FWD premium and surrender/paid comparison viewer
 - `/products` product database
 - `/savings` savings comparison and X-Ray
 - `/compliance` compliance disclosure

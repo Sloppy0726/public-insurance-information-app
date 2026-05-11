@@ -30,6 +30,7 @@ test('FWD SMART inventory backup keeps the expected source counts', () => {
   assert.equal(inventory.quote_matrix.length, 135);
   assert.equal(inventory.benefit_values.length, 1019);
   assert.equal(inventory.extraction_qa.length, 27);
+  assert.equal(inventory.standard_comparison.length, 50);
 });
 
 test('FWD SMART inventory covers the core nine comparison buckets separately', () => {
@@ -70,4 +71,16 @@ test('FWD SMART inventory has no unredacted DOB/contact-style values', () => {
 test('FWD SMART sanitised workbook is present for GitHub backup', () => {
   const stats = fs.statSync(workbookPath);
   assert.ok(stats.size > 100_000, `workbook is unexpectedly small: ${stats.size}`);
+});
+
+test('FWD SMART comparison rows include premium and long-term return fields', () => {
+  const fwdFortuneWorld = inventory.standard_comparison.find(row =>
+    row.product_name_zh === '盈聚‧天下 II 保險計劃' && row.comparison_bucket === '5Y_ANNUAL'
+  );
+
+  assert.equal(fwdFortuneWorld.premium_amount, 15600);
+  assert.equal(fwdFortuneWorld.total_premium_paid, 78000);
+  assert.equal(fwdFortuneWorld.year_20_surrender_to_paid_pct, 2.863949);
+  assert.equal(fwdFortuneWorld.year_30_surrender_to_paid_pct, 5.854641);
+  assert.equal(fwdFortuneWorld.benefit_value_rows, 10);
 });

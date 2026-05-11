@@ -41,6 +41,12 @@ export default function Home() {
                 FWD Inventory
               </Link>
               <Link
+                href="/fwd-compare"
+                className="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:border-slate-500"
+              >
+                FWD Compare
+              </Link>
+              <Link
                 href="/savings"
                 className="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:border-slate-500"
               >
@@ -131,7 +137,7 @@ export default function Home() {
           {[
             {
               title: '現在有',
-              body: '產品清單、FWD SMART inventory、分類篩選、保費/保額/退保/年金欄位、source trace、儲蓄保 X-Ray。',
+              body: '產品清單、FWD SMART inventory、FWD保費/回報比較、分類篩選、source trace、儲蓄保 X-Ray。',
             },
             {
               title: '下一步',

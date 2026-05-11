@@ -12,6 +12,13 @@ SOURCE_XLSX = SOURCE_DIR / "fwd_smart_inventory.xlsx"
 OUTPUT_DIR = Path(__file__).resolve().parents[1] / "data" / "fwd"
 OUTPUT_JSON = OUTPUT_DIR / "fwd-smart-inventory-2026-05-11.json"
 OUTPUT_XLSX = OUTPUT_DIR / "fwd-smart-inventory-2026-05-11.xlsx"
+WORKBOOK_JSON_SHEETS = [
+    "standard_guide",
+    "standard_status",
+    "standard_comparison",
+    "minimum_cases",
+    "inventory_summary",
+]
 
 SENSITIVE_KEY_RE = re.compile(
     r"(^|_)(dob|date_of_birth|birth_date|hkid|id_no|identity|phone|mobile|email|address)(_|$)",
@@ -59,14 +66,38 @@ def sanitize_workbook():
     workbook.save(OUTPUT_XLSX)
 
 
+def sheet_to_rows(workbook, sheet_name: str):
+    sheet = workbook[sheet_name]
+    rows = list(sheet.iter_rows(values_only=True))
+    if not rows:
+        return []
+
+    headers = [str(header) if header is not None else "" for header in rows[0]]
+    output = []
+    for row in rows[1:]:
+        record = {
+            header: value
+            for header, value in zip(headers, row)
+            if header and value is not None
+        }
+        if record:
+            output.append(sanitize(record))
+    return output
+
+
 def main():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     data = json.loads(SOURCE_JSON.read_text(encoding="utf-8"))
     sanitized = sanitize(deepcopy(data))
+    source_workbook = load_workbook(SOURCE_XLSX, read_only=True, data_only=True)
+    for sheet_name in WORKBOOK_JSON_SHEETS:
+        if sheet_name in source_workbook.sheetnames:
+            sanitized[sheet_name] = sheet_to_rows(source_workbook, sheet_name)
     sanitized["_metadata"] = {
         "source_folder": str(SOURCE_DIR),
         "source_json": SOURCE_JSON.name,
         "source_xlsx": SOURCE_XLSX.name,
+        "workbook_json_sheets": WORKBOOK_JSON_SHEETS,
         "sanitized": True,
         "redaction_rule": "DOB/HKID/phone/email/address-style fields and DOB text snippets redacted before public GitHub commit.",
     }

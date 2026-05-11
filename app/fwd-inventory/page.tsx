@@ -260,6 +260,12 @@ export default function FwdInventoryPage() {
                 產品資料庫
               </Link>
               <Link
+                href="/fwd-compare"
+                className="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:border-slate-500"
+              >
+                FWD Compare
+              </Link>
+              <Link
                 href="/savings"
                 className="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:border-slate-500"
               >

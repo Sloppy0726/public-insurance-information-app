@@ -264,6 +264,8 @@ Completed:
   - `data/fwd/fwd-smart-inventory-2026-05-11.json`
   - `data/fwd/fwd-smart-inventory-2026-05-11.xlsx`
 - Added `/fwd-inventory` to visualize inventory completeness, nine-bucket quote coverage, product-family status, actual quote samples, and QA issues.
+- Added `/fwd-compare` as the actual comparison view focused on premium, total paid, 10/20/30-year surrender-to-paid ratios, breakeven year, and available curves.
+- Updated `scripts/import-fwd-inventory.py` so the repo JSON also includes workbook-derived `standard_comparison`, `minimum_cases`, `inventory_summary`, `standard_status`, and `standard_guide` sheets.
 
 FWD SMART inventory summary:
 
@@ -274,6 +276,7 @@ FWD SMART inventory summary:
 | Quote matrix rows | 135 |
 | Benefit rows | 1,019 |
 | Extraction QA flags | 27 |
+| Standard comparison rows | 50 |
 
 Category summary:
 
