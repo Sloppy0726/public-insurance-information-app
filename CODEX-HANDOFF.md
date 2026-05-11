@@ -265,6 +265,10 @@ Completed:
   - `data/fwd/fwd-smart-inventory-2026-05-11.xlsx`
 - Added `/fwd-inventory` to visualize inventory completeness, nine-bucket quote coverage, product-family status, actual quote samples, and QA issues.
 - Added `/fwd-compare` as the actual comparison view focused on premium, total paid, 10/20/30-year surrender-to-paid ratios, breakeven year, and available curves.
+- Refined `/fwd-compare` to use consumer budget cohorts for wealth products:
+  - annual target = USD 15,600/year
+  - monthly target = USD 1,300/month
+  - rows outside a 10% premium-budget tolerance are excluded from the comparison table and shown under "不可直接比較"
 - Updated `scripts/import-fwd-inventory.py` so the repo JSON also includes workbook-derived `standard_comparison`, `minimum_cases`, `inventory_summary`, `standard_status`, and `standard_guide` sheets.
 
 FWD SMART inventory summary:

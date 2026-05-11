@@ -87,13 +87,40 @@ function premiumLabel(row: FwdCompareRow) {
   return money(row.premiumAmount, row.currency);
 }
 
+function targetLabel(row: FwdCompareRow) {
+  if (row.comparisonBasisType === 'PROTECTION_SUM_INSURED') {
+    return row.actualBasisAmount ? `保額 ${money(row.actualBasisAmount, row.currency)}` : '固定保額';
+  }
+
+  if (row.targetPremiumAmount != null) {
+    if (row.paymentMode === 'MONTHLY') return `目標 ${money(row.targetPremiumAmount, row.currency)} / 月`;
+    if (row.paymentMode === 'ANNUAL') return `目標 ${money(row.targetPremiumAmount, row.currency)} / 年`;
+    return `目標保費 ${money(row.targetPremiumAmount, row.currency)}`;
+  }
+
+  if (row.targetTotalPremiumPaid != null) {
+    return `目標總供款 ${money(row.targetTotalPremiumPaid, row.currency)}`;
+  }
+
+  return '未定 budget';
+}
+
+function budgetDeltaLabel(row: FwdCompareRow) {
+  if (row.budgetDeltaPct == null) return row.comparable ? '同一 basis' : '不可比較';
+  const sign = row.budgetDeltaPct > 0 ? '+' : '';
+  return `${sign}${(row.budgetDeltaPct * 100).toFixed(1)}% vs target`;
+}
+
 function sourceTone(row: FwdCompareRow) {
+  if (!row.comparable) return 'border-slate-200 bg-slate-50 text-slate-500';
   if (row.curve.length > 0) return 'border-emerald-200 bg-emerald-50 text-emerald-700';
   if (row.sourceQuality === 'Portal confirmed') return 'border-blue-200 bg-blue-50 text-blue-700';
   return 'border-amber-200 bg-amber-50 text-amber-700';
 }
 
 function compareRows(a: FwdCompareRow, b: FwdCompareRow) {
+  const comparableDiff = Number(b.comparable) - Number(a.comparable);
+  if (comparableDiff !== 0) return comparableDiff;
   const curveDiff = Number(b.curve.length > 0) - Number(a.curve.length > 0);
   if (curveDiff !== 0) return curveDiff;
   const returnDiff = (b.year20SurrenderToPaidPct ?? -1) - (a.year20SurrenderToPaidPct ?? -1);
@@ -244,7 +271,7 @@ function SummaryCards({ rows }: { rows: FwdCompareRow[] }) {
   return (
     <section className="grid gap-3 md:grid-cols-4">
       <div className="rounded-lg border bg-white p-4 shadow-sm">
-        <p className="text-xs font-semibold text-slate-500">Rows</p>
+        <p className="text-xs font-semibold text-slate-500">可比較 rows</p>
         <p className="mt-2 text-3xl font-black text-slate-950">{rows.length}</p>
       </div>
       <div className="rounded-lg border bg-white p-4 shadow-sm">
@@ -257,7 +284,7 @@ function SummaryCards({ rows }: { rows: FwdCompareRow[] }) {
         <p className="mt-1 truncate text-xs text-slate-500">{best20?.productNameZh ?? '呢格未有回報資料'}</p>
       </div>
       <div className="rounded-lg border bg-white p-4 shadow-sm">
-        <p className="text-xs font-semibold text-slate-500">保費較低 row</p>
+        <p className="text-xs font-semibold text-slate-500">實際保費較低</p>
         <p className="mt-2 text-xl font-black text-slate-950">{cheapest ? premiumLabel(cheapest) : '未有'}</p>
         <p className="mt-1 truncate text-xs text-slate-500">{cheapest?.productNameZh ?? '未有保費資料'}</p>
       </div>
@@ -266,11 +293,22 @@ function SummaryCards({ rows }: { rows: FwdCompareRow[] }) {
 }
 
 function CompareTable({ rows }: { rows: FwdCompareRow[] }) {
+  if (rows.length === 0) {
+    return (
+      <div className="rounded-lg border border-dashed bg-white p-6 text-center shadow-sm">
+        <h2 className="font-black text-slate-900">呢格未有同一 consumer budget 嘅可比較 rows</h2>
+        <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-slate-500">
+          做唔到 USD 15,600/年或 USD 1,300/月 target 嘅 plan 會排除，避免用唔同保費 basis 扮比較。
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="rounded-lg border bg-white p-4 shadow-sm">
       <div className="mb-3 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
         <h2 className="text-lg font-black text-slate-950">保費同回報比較</h2>
-        <p className="text-sm text-slate-500">排序以 20年退保/已供比例為先；沒有 curve 嘅 rows 仍保留保費。</p>
+        <p className="text-sm text-slate-500">只顯示同一 consumer budget 或同一保障保額 basis 嘅 rows。</p>
       </div>
       <div className="overflow-x-auto">
         <table className="w-full min-w-[1080px] border-separate border-spacing-0 text-left text-sm">
@@ -278,6 +316,7 @@ function CompareTable({ rows }: { rows: FwdCompareRow[] }) {
             <tr className="text-xs font-semibold uppercase tracking-normal text-slate-500">
               <th className="border-b px-3 py-2">Product</th>
               <th className="border-b px-3 py-2">條件</th>
+              <th className="border-b px-3 py-2">Budget basis</th>
               <th className="border-b px-3 py-2 text-right">保費</th>
               <th className="border-b px-3 py-2 text-right">總供款</th>
               <th className="border-b px-3 py-2 text-right">10Y</th>
@@ -300,6 +339,12 @@ function CompareTable({ rows }: { rows: FwdCompareRow[] }) {
                     {bucketLabel(row.comparisonBucket)}
                   </span>
                   <p className="mt-1 text-xs text-slate-500">{row.standardStatus?.replaceAll('_', ' ') ?? 'status unknown'}</p>
+                </td>
+                <td className="border-b px-3 py-3">
+                  <p className="font-semibold text-slate-800">{targetLabel(row)}</p>
+                  <p className={`mt-1 text-xs font-semibold ${row.budgetFit ? 'text-emerald-700' : 'text-slate-500'}`}>
+                    {budgetDeltaLabel(row)}
+                  </p>
                 </td>
                 <td className="border-b px-3 py-3 text-right font-semibold">{premiumLabel(row)}</td>
                 <td className="border-b px-3 py-3 text-right font-semibold">{money(row.totalPremiumPaid, row.currency)}</td>
@@ -325,14 +370,45 @@ function CompareTable({ rows }: { rows: FwdCompareRow[] }) {
   );
 }
 
+function ExcludedRows({ rows }: { rows: FwdCompareRow[] }) {
+  if (rows.length === 0) return null;
+
+  return (
+    <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+      <div className="mb-3 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
+        <h2 className="text-lg font-black text-slate-950">不可直接比較</h2>
+        <p className="text-sm text-slate-500">以下 rows 未符合 consumer budget target，所以唔放入比較表。</p>
+      </div>
+      <div className="grid gap-2 md:grid-cols-2">
+        {rows.map(row => (
+          <div key={row.id} className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-sm">
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <p className="font-black text-slate-900">{row.productNameZh}</p>
+                <p className="mt-1 text-xs text-slate-500">{bucketLabel(row.comparisonBucket)} · {targetLabel(row)}</p>
+              </div>
+              <p className="shrink-0 text-right font-semibold text-slate-800">{premiumLabel(row)}</p>
+            </div>
+            <p className="mt-2 text-xs leading-relaxed text-amber-700">
+              {row.exclusionReason ?? budgetDeltaLabel(row)}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function FwdCompareClient({ rows, stats }: Props) {
   const [category, setCategory] = useState('savings');
   const [term, setTerm] = useState<TermKey>('5Y');
   const [mode, setMode] = useState<ModeKey>('ANNUAL');
 
   const categoryOptions = useMemo(() => {
-    const counts = rows.reduce<Record<string, number>>((acc, row) => {
-      acc[row.category] = (acc[row.category] ?? 0) + 1;
+    const counts = rows.reduce<Record<string, { total: number; usable: number }>>((acc, row) => {
+      acc[row.category] = acc[row.category] ?? { total: 0, usable: 0 };
+      acc[row.category].total += 1;
+      if (row.comparable) acc[row.category].usable += 1;
       return acc;
     }, {});
     return Object.entries(counts)
@@ -341,20 +417,21 @@ export default function FwdCompareClient({ rows, stats }: Props) {
         const indexB = CATEGORY_ORDER.indexOf(b);
         return (indexA === -1 ? CATEGORY_ORDER.length : indexA) - (indexB === -1 ? CATEGORY_ORDER.length : indexB);
       })
-      .map(([key, count]) => ({ key, count, label: categoryLabel(key) }));
+      .map(([key, count]) => ({ key, ...count, label: categoryLabel(key) }));
   }, [rows]);
 
   const selectedBucket = bucketFor(term, mode);
-  const bucketCounts = useMemo(() => countRows(rows.filter(row => row.category === category)), [category, rows]);
+  const comparableRows = useMemo(() => rows.filter(row => row.comparable), [rows]);
+  const bucketCounts = useMemo(() => countRows(comparableRows.filter(row => row.category === category)), [category, comparableRows]);
   const visibleRows = useMemo(() => rows
-    .filter(row => row.category === category && row.comparisonBucket === selectedBucket)
+    .filter(row => row.comparable && row.category === category && row.comparisonBucket === selectedBucket)
     .slice()
     .sort(compareRows), [category, rows, selectedBucket]);
 
-  const allCategoryRows = useMemo(() => rows
-    .filter(row => row.category === category)
+  const excludedRows = useMemo(() => rows
+    .filter(row => !row.comparable && row.category === category && row.comparisonBucket === selectedBucket)
     .slice()
-    .sort(compareRows), [category, rows]);
+    .sort(compareRows), [category, rows, selectedBucket]);
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-950">
@@ -365,9 +442,9 @@ export default function FwdCompareClient({ rows, stats }: Props) {
               <Link href="/" className="text-xs font-semibold text-slate-500 hover:text-slate-800">
                 返回首頁
               </Link>
-              <h1 className="mt-2 text-2xl font-black tracking-normal">FWD 保費及回報比較</h1>
+              <h1 className="mt-2 text-2xl font-black tracking-normal">FWD 消費者預算比較</h1>
               <p className="mt-1 max-w-3xl text-sm leading-relaxed text-slate-500">
-                先揀產品類型、供款年期、付款方式，再睇保費、總供款、10/20/30年退保價值比例同 curve。沒有 exact illustration 嘅 row 只顯示保費，不做換算。
+                Wealth 類產品用消費者供款做 standard：年供 USD 15,600、月供 USD 1,300。做唔到 target 嘅 plan 會排除，避免唔同保費 basis 混埋比較。
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -391,10 +468,10 @@ export default function FwdCompareClient({ rows, stats }: Props) {
       <main className="mx-auto max-w-7xl px-4 py-5">
         <section className="grid gap-3 md:grid-cols-4">
           {[
-            { label: 'Comparison rows', value: stats.totalRows },
-            { label: 'Premium rows', value: stats.rowsWithPremium },
-            { label: 'Rows with curve', value: stats.rowsWithCurve },
-            { label: '20Y return rows', value: stats.rowsWith20YearReturn },
+            { label: 'All source rows', value: stats.totalRows },
+            { label: 'Comparable rows', value: stats.comparableRows },
+            { label: 'Budget rows', value: stats.consumerBudgetRows },
+            { label: 'Budget excluded', value: stats.budgetExcludedRows },
           ].map(item => (
             <div key={item.label} className="rounded-lg border bg-white p-4 shadow-sm">
               <p className="text-xs font-semibold text-slate-500">{item.label}</p>
@@ -419,7 +496,7 @@ export default function FwdCompareClient({ rows, stats }: Props) {
                         : 'border-slate-200 bg-white text-slate-600 hover:border-slate-400'
                     }`}
                   >
-                    {option.label} {option.count}
+                    {option.label} {option.usable}/{option.total}
                   </button>
                 ))}
               </div>
@@ -483,12 +560,12 @@ export default function FwdCompareClient({ rows, stats }: Props) {
           </div>
 
           <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs leading-relaxed text-amber-800">
-            重要：月供、年供、一次性付款不會互相換算。每一格只比較該格實際抽到嘅保費或 proposal illustration。
+            重要：wealth 類產品只用消費者 budget 做比較。年供 target = USD 15,600；月供 target = USD 1,300；月供同年供不會互相換算。
           </div>
         </section>
 
         <div className="mt-4">
-          <SummaryCards rows={visibleRows.length > 0 ? visibleRows : allCategoryRows} />
+          <SummaryCards rows={visibleRows} />
         </div>
 
         <section className="mt-4">
@@ -496,7 +573,7 @@ export default function FwdCompareClient({ rows, stats }: Props) {
             <div>
               <h2 className="text-lg font-black">{categoryLabel(category)} · {bucketLabel(selectedBucket)}</h2>
               <p className="text-sm text-slate-500">
-                {visibleRows.length > 0 ? `${visibleRows.length} rows in this exact bucket` : '呢個 exact bucket 暫時未有資料，下方顯示同類型所有 rows。'}
+                {visibleRows.length > 0 ? `${visibleRows.length} rows meet the consumer budget standard` : '呢個 exact bucket 暫時未有符合 consumer budget 嘅 rows。'}
               </p>
             </div>
             <span className="rounded-md bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600">
@@ -505,8 +582,9 @@ export default function FwdCompareClient({ rows, stats }: Props) {
           </div>
 
           <div className="space-y-4">
-            <CompareChart rows={visibleRows.length > 0 ? visibleRows : allCategoryRows} />
-            <CompareTable rows={visibleRows.length > 0 ? visibleRows : allCategoryRows} />
+            <CompareChart rows={visibleRows} />
+            <CompareTable rows={visibleRows} />
+            <ExcludedRows rows={excludedRows} />
           </div>
         </section>
 

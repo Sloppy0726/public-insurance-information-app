@@ -80,6 +80,7 @@ export type FwdCompareRow = {
   productName: string;
   productNameZh: string;
   category: string;
+  standardCaseGroup: string | null;
   comparisonBucket: string;
   paymentTermYears: number | null;
   paymentMode: string;
@@ -91,6 +92,15 @@ export type FwdCompareRow = {
   requestedInputType: string | null;
   requestedInputAmount: number | null;
   actualBasisAmount: number | null;
+  comparisonBasisType: 'CONSUMER_PREMIUM_BUDGET' | 'PROTECTION_SUM_INSURED' | 'UNCLASSIFIED';
+  targetPremiumAmount: number | null;
+  targetTotalPremiumPaid: number | null;
+  budgetMeasureAmount: number | null;
+  budgetDeltaAmount: number | null;
+  budgetDeltaPct: number | null;
+  budgetFit: boolean;
+  comparable: boolean;
+  exclusionReason: string | null;
   standardStatus: string | null;
   sourceQuality: string | null;
   sourceFile: string | null;
@@ -113,10 +123,23 @@ export type FwdCompareData = {
     rowsWithPremium: number;
     rowsWithCurve: number;
     rowsWith20YearReturn: number;
+    comparableRows: number;
+    consumerBudgetRows: number;
+    budgetExcludedRows: number;
   };
 };
 
 const INVENTORY_FILE = path.join(process.cwd(), 'data', 'fwd', 'fwd-smart-inventory-2026-05-11.json');
+const WEALTH_CATEGORIES = new Set(['savings', 'life-savings', 'annuity']);
+const PROTECTION_CATEGORIES = new Set(['critical-illness', 'life']);
+const TARGET_ANNUAL_PREMIUM = 15600;
+const TARGET_MONTHLY_PREMIUM = 1300;
+const BUDGET_TOLERANCE_PCT = 0.1;
+const SINGLE_TOTAL_BUDGETS: Record<string, number> = {
+  '2Y_SINGLE': TARGET_ANNUAL_PREMIUM * 2,
+  '5Y_SINGLE': TARGET_ANNUAL_PREMIUM * 5,
+  '10Y_SINGLE': TARGET_ANNUAL_PREMIUM * 10,
+};
 
 function readInventory(): FwdInventory {
   return JSON.parse(fs.readFileSync(INVENTORY_FILE, 'utf8')) as FwdInventory;
@@ -184,6 +207,124 @@ function buildCurveMap(benefitValues: BenefitValueRow[]) {
   return groups;
 }
 
+function targetForConsumerBudget(row: StandardComparisonRow) {
+  const paymentMode = row.payment_mode;
+  const bucket = row.comparison_bucket ?? '';
+
+  if (paymentMode === 'ANNUAL') {
+    return {
+      targetPremiumAmount: TARGET_ANNUAL_PREMIUM,
+      targetTotalPremiumPaid: null,
+      budgetMeasureAmount: asNumber(row.premium_amount),
+    };
+  }
+
+  if (paymentMode === 'MONTHLY') {
+    return {
+      targetPremiumAmount: TARGET_MONTHLY_PREMIUM,
+      targetTotalPremiumPaid: null,
+      budgetMeasureAmount: asNumber(row.premium_amount),
+    };
+  }
+
+  if (paymentMode === 'SINGLE') {
+    const targetTotalPremiumPaid = SINGLE_TOTAL_BUDGETS[bucket] ?? null;
+    return {
+      targetPremiumAmount: null,
+      targetTotalPremiumPaid,
+      budgetMeasureAmount: asNumber(row.total_premium_paid),
+    };
+  }
+
+  return {
+    targetPremiumAmount: null,
+    targetTotalPremiumPaid: null,
+    budgetMeasureAmount: null,
+  };
+}
+
+function classifyComparisonBasis(row: StandardComparisonRow) {
+  const category = row.category ?? 'unknown';
+  const premiumAmount = asNumber(row.premium_amount);
+
+  if (WEALTH_CATEGORIES.has(category)) {
+    const target = targetForConsumerBudget(row);
+    const targetAmount = target.targetPremiumAmount ?? target.targetTotalPremiumPaid;
+
+    if (targetAmount == null) {
+      return {
+        comparisonBasisType: 'CONSUMER_PREMIUM_BUDGET' as const,
+        targetPremiumAmount: target.targetPremiumAmount,
+        targetTotalPremiumPaid: target.targetTotalPremiumPaid,
+        budgetMeasureAmount: target.budgetMeasureAmount,
+        budgetDeltaAmount: null,
+        budgetDeltaPct: null,
+        budgetFit: false,
+        comparable: false,
+        exclusionReason: 'No consumer budget target is defined for this payment bucket.',
+      };
+    }
+
+    if (target.budgetMeasureAmount == null) {
+      return {
+        comparisonBasisType: 'CONSUMER_PREMIUM_BUDGET' as const,
+        targetPremiumAmount: target.targetPremiumAmount,
+        targetTotalPremiumPaid: target.targetTotalPremiumPaid,
+        budgetMeasureAmount: null,
+        budgetDeltaAmount: null,
+        budgetDeltaPct: null,
+        budgetFit: false,
+        comparable: false,
+        exclusionReason: 'No premium was extracted for the consumer budget target.',
+      };
+    }
+
+    const budgetDeltaAmount = target.budgetMeasureAmount - targetAmount;
+    const budgetDeltaPct = budgetDeltaAmount / targetAmount;
+    const budgetFit = Math.abs(budgetDeltaPct) <= BUDGET_TOLERANCE_PCT;
+
+    return {
+      comparisonBasisType: 'CONSUMER_PREMIUM_BUDGET' as const,
+      targetPremiumAmount: target.targetPremiumAmount,
+      targetTotalPremiumPaid: target.targetTotalPremiumPaid,
+      budgetMeasureAmount: target.budgetMeasureAmount,
+      budgetDeltaAmount,
+      budgetDeltaPct,
+      budgetFit,
+      comparable: budgetFit,
+      exclusionReason: budgetFit
+        ? null
+        : `Premium is ${(budgetDeltaPct * 100).toFixed(1)}% away from the consumer budget target.`,
+    };
+  }
+
+  if (PROTECTION_CATEGORIES.has(category)) {
+    return {
+      comparisonBasisType: 'PROTECTION_SUM_INSURED' as const,
+      targetPremiumAmount: null,
+      targetTotalPremiumPaid: null,
+      budgetMeasureAmount: premiumAmount,
+      budgetDeltaAmount: null,
+      budgetDeltaPct: null,
+      budgetFit: true,
+      comparable: row.requested_input_type === 'sum_insured' && asNumber(row.actual_basis_amount) != null,
+      exclusionReason: row.requested_input_type === 'sum_insured' ? null : 'Protection products require a fixed coverage amount basis.',
+    };
+  }
+
+  return {
+    comparisonBasisType: 'UNCLASSIFIED' as const,
+    targetPremiumAmount: null,
+    targetTotalPremiumPaid: null,
+    budgetMeasureAmount: premiumAmount,
+    budgetDeltaAmount: null,
+    budgetDeltaPct: null,
+    budgetFit: false,
+    comparable: false,
+    exclusionReason: 'Product category is not mapped to a comparison standard.',
+  };
+}
+
 export function loadFwdCompareData(): FwdCompareData {
   const inventory = readInventory();
   const productMap = buildProductMap(inventory.products);
@@ -197,6 +338,7 @@ export function loadFwdCompareData(): FwdCompareData {
       const bucket = row.comparison_bucket ?? 'UNKNOWN';
       const paymentMode = row.payment_mode ?? 'UNKNOWN';
       const curve = curveMap.get(curveKey(productFamilyId, bucket, paymentMode)) ?? [];
+      const basis = classifyComparisonBasis(row);
 
       return {
         id: rowId(row, productFamilyId, index),
@@ -204,6 +346,7 @@ export function loadFwdCompareData(): FwdCompareData {
         productName: row.product_name ?? product.product_name ?? row.product_name_zh,
         productNameZh: row.product_name_zh,
         category: row.category ?? 'unknown',
+        standardCaseGroup: row.standard_case_group ?? null,
         comparisonBucket: bucket,
         paymentTermYears: asNumber(row.payment_term_years),
         paymentMode,
@@ -215,6 +358,7 @@ export function loadFwdCompareData(): FwdCompareData {
         requestedInputType: row.requested_input_type ?? null,
         requestedInputAmount: asNumber(row.requested_input_amount),
         actualBasisAmount: asNumber(row.actual_basis_amount),
+        ...basis,
         standardStatus: row.standard_status ?? null,
         sourceQuality: row.source_quality ?? null,
         sourceFile: row.source_file ?? null,
@@ -246,6 +390,9 @@ export function loadFwdCompareData(): FwdCompareData {
       rowsWithPremium: rows.filter(row => row.premiumAmount != null).length,
       rowsWithCurve: rows.filter(row => row.curve.length > 0).length,
       rowsWith20YearReturn: rows.filter(row => row.year20SurrenderToPaidPct != null).length,
+      comparableRows: rows.filter(row => row.comparable).length,
+      consumerBudgetRows: rows.filter(row => row.comparisonBasisType === 'CONSUMER_PREMIUM_BUDGET' && row.budgetFit).length,
+      budgetExcludedRows: rows.filter(row => row.comparisonBasisType === 'CONSUMER_PREMIUM_BUDGET' && !row.budgetFit).length,
     },
   };
 }
