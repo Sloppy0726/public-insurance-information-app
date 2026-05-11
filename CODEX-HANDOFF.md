@@ -252,6 +252,42 @@ Verification:
   - no horizontal overflow
   - browser console errors: 0
 
+## Latest Codex continuation — 2026-05-11 FWD SMART full inventory backup
+
+Completed:
+- Confirmed the user's latest source workbook:
+  `/Users/book/Documents/AI SME /outputs/fwd_smart_inventory_2026-05-11/fwd_smart_inventory.xlsx`
+- Imported the matching source JSON from the same folder:
+  `/Users/book/Documents/AI SME /outputs/fwd_smart_inventory_2026-05-11/fwd_smart_inventory_data.json`
+- Added `scripts/import-fwd-inventory.py` to regenerate a public-safe repo copy.
+- Saved sanitised backup files in Git:
+  - `data/fwd/fwd-smart-inventory-2026-05-11.json`
+  - `data/fwd/fwd-smart-inventory-2026-05-11.xlsx`
+- Added `/fwd-inventory` to visualize inventory completeness, nine-bucket quote coverage, product-family status, actual quote samples, and QA issues.
+
+FWD SMART inventory summary:
+
+| Dataset | Count |
+|---|---:|
+| Products | 14 |
+| Premium options | 57 |
+| Quote matrix rows | 135 |
+| Benefit rows | 1,019 |
+| Extraction QA flags | 27 |
+
+Category summary:
+
+| Category | Count |
+|---|---:|
+| 儲蓄 | 4 |
+| 人壽儲蓄 | 4 |
+| 人壽 | 1 |
+| 危疾 | 4 |
+| 年金 | 1 |
+
+Important caveat:
+- The repo copy redacts DOB/HKID/phone/email/address-style fields and DOB snippets before GitHub push. Do not commit the raw scratch files under `/Users/book/Documents/AI SME /outputs/fwd_smart_inventory_2026-05-11/` because they include portal debug outputs and profile test data.
+
 ## Tech stack
 - Next.js 16.2.6 (App Router), React 19.2.4, TypeScript 5, Tailwind CSS 4
 - No database yet — data is static JSON files in `/data/`
