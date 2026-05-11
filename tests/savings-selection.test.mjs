@@ -19,10 +19,11 @@ async function importSelectionModule() {
   return import(`file://${compiledPath}`);
 }
 
-function plan({ company = 'FWD', category = 'savings', name, row20, row30 = row20, source = 'pdf-proposal' }) {
+function plan({ company = 'FWD', category = 'savings', bucket = '5Y_MONTHLY', name, row20, row30 = row20, source = 'pdf-proposal' }) {
   return {
     company,
     category,
+    comparison_bucket: bucket,
     product_name_zh: name,
     source_kind: source,
     surrender_value_table: [
@@ -32,7 +33,7 @@ function plan({ company = 'FWD', category = 'savings', name, row20, row30 = row2
   };
 }
 
-test('selectTopComparisonPlans keeps at most three plans per company and category by surrender ratio', async () => {
+test('selectTopComparisonPlans keeps at most two plans per company, category, and comparison bucket', async () => {
   const { selectTopComparisonPlans } = await importSelectionModule();
 
   const selected = selectTopComparisonPlans([
@@ -40,21 +41,32 @@ test('selectTopComparisonPlans keeps at most three plans per company and categor
     plan({ name: 'B', row20: 180 }),
     plan({ name: 'C', row20: 130 }),
     plan({ name: 'D', row20: 220 }),
-    plan({ name: 'E', row20: 90 }),
-    plan({ category: 'annuity', name: 'Annuity A', row20: 100 }),
-    plan({ category: 'annuity', name: 'Annuity B', row20: 200 }),
-    plan({ category: 'annuity', name: 'Annuity C', row20: 300 }),
-    plan({ category: 'annuity', name: 'Annuity D', row20: 400 }),
+    plan({ bucket: '5Y_ANNUAL', name: 'Annual A', row20: 100 }),
+    plan({ bucket: '5Y_ANNUAL', name: 'Annual B', row20: 200 }),
+    plan({ bucket: '5Y_ANNUAL', name: 'Annual C', row20: 300 }),
+    plan({ category: 'annuity', bucket: '5Y_ANNUAL', name: 'Annuity A', row20: 100 }),
+    plan({ category: 'annuity', bucket: '5Y_ANNUAL', name: 'Annuity B', row20: 200 }),
+    plan({ category: 'annuity', bucket: '5Y_ANNUAL', name: 'Annuity C', row20: 300 }),
     plan({ company: 'Zurich', name: 'Z', row20: 10 }),
-  ], { limitPerGroup: 3 });
+  ]);
 
   assert.deepEqual(
-    selected.filter(item => item.company === 'FWD' && item.category === 'savings').map(item => item.product_name_zh),
-    ['D', 'B', 'C']
+    selected
+      .filter(item => item.company === 'FWD' && item.category === 'savings' && item.comparison_bucket === '5Y_MONTHLY')
+      .map(item => item.product_name_zh),
+    ['D', 'B']
   );
   assert.deepEqual(
-    selected.filter(item => item.company === 'FWD' && item.category === 'annuity').map(item => item.product_name_zh),
-    ['Annuity D', 'Annuity C', 'Annuity B']
+    selected
+      .filter(item => item.company === 'FWD' && item.category === 'savings' && item.comparison_bucket === '5Y_ANNUAL')
+      .map(item => item.product_name_zh),
+    ['Annual C', 'Annual B']
+  );
+  assert.deepEqual(
+    selected
+      .filter(item => item.company === 'FWD' && item.category === 'annuity' && item.comparison_bucket === '5Y_ANNUAL')
+      .map(item => item.product_name_zh),
+    ['Annuity C', 'Annuity B']
   );
   assert.equal(selected.filter(item => item.company === 'Zurich' && item.category === 'savings').length, 1);
 });
@@ -68,11 +80,24 @@ test('selectTopComparisonPlans deduplicates near-identical product names before 
     plan({ name: '智盈．超凡保險計劃', row20: 180 }),
     plan({ name: '智盈匯聚(優越版)III壽險計劃', row20: 160 }),
     plan({ name: '另一份計劃', row20: 140 }),
-  ], { limitPerGroup: 3 });
+  ]);
 
   assert.deepEqual(selected.map(item => item.product_name_zh), [
     '盈聚‧天下 II 保險計劃',
     '智盈．超凡保險計劃',
-    '智盈匯聚(優越版)III壽險計劃',
+  ]);
+});
+
+test('selectTopComparisonPlans does not deduplicate the same product across different buckets', async () => {
+  const { selectTopComparisonPlans } = await importSelectionModule();
+
+  const selected = selectTopComparisonPlans([
+    plan({ bucket: '5Y_MONTHLY', name: '盈聚·天下 II 保險計劃', row20: 120 }),
+    plan({ bucket: '5Y_ANNUAL', name: '盈聚·天下 II 保險計劃', row20: 200 }),
+  ]);
+
+  assert.deepEqual(selected.map(item => `${item.comparison_bucket}:${item.product_name_zh}`), [
+    '5Y_MONTHLY:盈聚·天下 II 保險計劃',
+    '5Y_ANNUAL:盈聚·天下 II 保險計劃',
   ]);
 });

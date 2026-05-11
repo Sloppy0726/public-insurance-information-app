@@ -17,10 +17,14 @@ export type Plan = {
   product_name_zh: string;
   category: string;
   category_label?: string;
+  comparison_bucket?: string;
+  payment_term_bucket?: string | null;
+  payment_mode_bucket?: string | null;
   currency: string;
   quote_profile: { age: number; gender: string; smoker: boolean };
   premium: {
     payment_mode?: string;
+    actual_premium?: number;
     monthly: number;
     monthly_with_levy?: number;
     annual_equivalent: number;

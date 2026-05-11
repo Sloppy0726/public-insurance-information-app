@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import {
   CartesianGrid,
@@ -11,6 +12,13 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
+import {
+  comparisonBucketLabel,
+  PAYMENT_MODE_BUCKETS,
+  PAYMENT_TERM_BUCKETS,
+  type PaymentModeBucket,
+  type PaymentTermBucket,
+} from '@/lib/quote-buckets';
 import type { Plan } from '@/lib/types';
 
 const COLORS = [
@@ -41,15 +49,18 @@ function planKey(plan: Plan) {
 }
 
 function premiumLabel(plan: Plan) {
+  const actualPremium = plan.premium.actual_premium
+    ?? (plan.premium.payment_mode === 'MONTHLY' ? plan.premium.monthly : plan.premium.annual_equivalent);
+
   if (plan.premium.payment_mode === 'SINGLE') {
-    return `一次性 $${fmt(plan.premium.annual_equivalent)}`;
+    return `Fullpay $${fmt(actualPremium)}`;
   }
 
   if (plan.premium.payment_mode === 'ANNUAL') {
-    return `每年 $${fmt(plan.premium.annual_equivalent)}`;
+    return `每年 $${fmt(actualPremium)}`;
   }
 
-  return `每月 $${fmt(plan.premium.monthly)}`;
+  return `每月 $${fmt(actualPremium)}`;
 }
 
 function rowRatio(row: { total_paid: number; total_surrender: number } | undefined) {
@@ -222,15 +233,162 @@ function SurrenderValueChart({ plans }: { plans: Plan[] }) {
   );
 }
 
+function bucketId(term: PaymentTermBucket, mode: PaymentModeBucket) {
+  return `${term}_${mode}`;
+}
+
+function countByBucket(plans: Plan[]) {
+  return plans.reduce<Record<string, number>>((counts, plan) => {
+    const bucket = plan.comparison_bucket ?? 'OUT_OF_SCOPE';
+    counts[bucket] = (counts[bucket] ?? 0) + 1;
+    return counts;
+  }, {});
+}
+
+function QuoteBucketPicker({
+  selectedTerm,
+  selectedMode,
+  counts,
+  onTermChange,
+  onModeChange,
+}: {
+  selectedTerm: PaymentTermBucket;
+  selectedMode: PaymentModeBucket;
+  counts: Record<string, number>;
+  onTermChange: (term: PaymentTermBucket) => void;
+  onModeChange: (mode: PaymentModeBucket) => void;
+}) {
+  return (
+    <div className="rounded-lg border bg-white p-3 shadow-sm">
+      <div className="mb-3 flex items-center justify-between gap-3">
+        <div>
+          <p className="text-sm font-semibold text-gray-900">比較條件</p>
+          <p className="mt-0.5 text-xs text-gray-400">{comparisonBucketLabel(bucketId(selectedTerm, selectedMode))}</p>
+        </div>
+        <span className="rounded bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-700">
+          {counts[bucketId(selectedTerm, selectedMode)] ?? 0} 份
+        </span>
+      </div>
+
+      <div className="space-y-3">
+        <div>
+          <p className="mb-1.5 text-xs font-medium text-gray-500">供款年期</p>
+          <div className="grid grid-cols-3 gap-1.5">
+            {PAYMENT_TERM_BUCKETS.map(term => (
+              <button
+                key={term.key}
+                type="button"
+                onClick={() => onTermChange(term.key)}
+                className={`rounded-md border px-2 py-2 text-sm font-semibold transition ${
+                  selectedTerm === term.key
+                    ? 'border-slate-900 bg-slate-900 text-white'
+                    : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'
+                }`}
+              >
+                {term.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <p className="mb-1.5 text-xs font-medium text-gray-500">付款方式</p>
+          <div className="grid grid-cols-3 gap-1.5">
+            {PAYMENT_MODE_BUCKETS.map(mode => {
+              const nextBucket = bucketId(selectedTerm, mode.key);
+              return (
+                <button
+                  key={mode.key}
+                  type="button"
+                  onClick={() => onModeChange(mode.key)}
+                  className={`rounded-md border px-2 py-2 text-sm font-semibold transition ${
+                    selectedMode === mode.key
+                      ? 'border-blue-700 bg-blue-700 text-white'
+                      : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'
+                  }`}
+                >
+                  <span>{mode.label}</span>
+                  <span className={`ml-1 text-xs ${selectedMode === mode.key ? 'text-blue-100' : 'text-gray-400'}`}>
+                    {counts[nextBucket] ?? 0}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BucketAvailability({
+  counts,
+  selectedBucket,
+  onPick,
+}: {
+  counts: Record<string, number>;
+  selectedBucket: string;
+  onPick: (term: PaymentTermBucket, mode: PaymentModeBucket) => void;
+}) {
+  return (
+    <div className="rounded-lg border bg-white p-3 shadow-sm">
+      <div className="mb-3 flex items-center justify-between gap-3">
+        <h2 className="text-sm font-semibold text-gray-900">九格資料狀態</h2>
+        <span className="text-xs text-gray-400">只顯示實際抽到嘅 quote</span>
+      </div>
+      <div className="grid grid-cols-[4.5rem_repeat(3,minmax(0,1fr))] gap-1.5 text-center text-xs">
+        <div />
+        {PAYMENT_MODE_BUCKETS.map(mode => (
+          <div key={mode.key} className="font-semibold text-gray-500">{mode.label}</div>
+        ))}
+        {PAYMENT_TERM_BUCKETS.map(term => (
+          <div key={term.key} className="contents">
+            <div className="flex items-center justify-center rounded bg-gray-50 px-1 font-semibold text-gray-600">
+              {term.label}
+            </div>
+            {PAYMENT_MODE_BUCKETS.map(mode => {
+              const key = bucketId(term.key, mode.key);
+              const count = counts[key] ?? 0;
+              const active = key === selectedBucket;
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => onPick(term.key, mode.key)}
+                  className={`rounded-md border px-1.5 py-2 font-semibold transition ${
+                    active
+                      ? 'border-blue-700 bg-blue-700 text-white'
+                      : count > 0
+                        ? 'border-emerald-200 bg-emerald-50 text-emerald-700'
+                        : 'border-gray-200 bg-gray-50 text-gray-400'
+                  }`}
+                >
+                  {count > 0 ? `${count}份` : '未有'}
+                </button>
+              );
+            })}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function SavingsCompare({ plans }: { plans: Plan[] }) {
+  const [selectedTerm, setSelectedTerm] = useState<PaymentTermBucket>('5Y');
+  const [selectedMode, setSelectedMode] = useState<PaymentModeBucket>('ANNUAL');
   const [weights, setWeights] = useState<Weights>({ earlyLoss: 25, guarantee: 25, projectedReturn: 25, longTerm: 25 });
   const [selectedYears, setSelectedYears] = useState<number[]>([3, 5, 10, 20, 30]);
   const [activeTab, setActiveTab] = useState<'rank' | 'xray' | 'table'>('rank');
+  const bucketCounts = countByBucket(plans);
+  const selectedBucket = bucketId(selectedTerm, selectedMode);
+  const visiblePlans = plans.filter(plan => plan.comparison_bucket === selectedBucket);
 
-  const scored = [...plans]
+  const scored = [...visiblePlans]
     .map((p, i) => ({ plan: p, score: calcScore(p, weights), color: COLORS[i % COLORS.length] }))
     .sort((a, b) => b.score - a.score);
-  const pdfPlanCount = plans.filter(plan => plan.source_kind === 'pdf-proposal').length;
+  const pdfPlanCount = visiblePlans.filter(plan => plan.source_kind === 'pdf-proposal').length;
+  const totalPdfPlanCount = plans.filter(plan => plan.source_kind === 'pdf-proposal').length;
 
   const toggleYear = (y: number) =>
     setSelectedYears(prev => prev.includes(y) ? prev.filter(x => x !== y) : [...prev, y].sort((a, b) => a - b));
@@ -241,12 +399,12 @@ export default function SavingsCompare({ plans }: { plans: Plan[] }) {
       <header className="bg-white border-b sticky top-0 z-20 shadow-sm">
         <div className="max-w-3xl mx-auto px-4 py-3">
           <h1 className="text-lg font-bold text-gray-900">儲蓄保比較</h1>
-          <p className="text-xs text-gray-400">數據話事 · 唔推薦唔銷售</p>
+          <p className="text-xs text-gray-400">數據話事 · 只做排序同模擬</p>
         </div>
         {/* Quote profile badge */}
         <div className="max-w-3xl mx-auto px-4 pb-2">
           <span className="inline-flex items-center gap-1 bg-blue-50 text-blue-700 text-xs px-2 py-1 rounded-full">
-            30歲男 · 非吸煙 · {plans.length}個計劃 · FWD PDF {pdfPlanCount}個 · 以已供保費%比較
+            30歲男 · 非吸煙 · {comparisonBucketLabel(selectedBucket)} · {visiblePlans.length}個計劃 · FWD PDF {pdfPlanCount}/{totalPdfPlanCount}個
           </span>
         </div>
       </header>
@@ -255,7 +413,7 @@ export default function SavingsCompare({ plans }: { plans: Plan[] }) {
       <div className="bg-white border-b sticky top-[72px] z-10">
         <div className="max-w-3xl mx-auto px-2 min-[390px]:px-4 flex gap-0">
           {[
-            { key: 'rank', label: '自訂排名', short: '排名' },
+            { key: 'rank', label: '自訂排序', short: '排序' },
             { key: 'xray', label: '費用X-Ray', short: 'X-Ray' },
             { key: 'table', label: '逐年數據', short: '年份' },
           ].map(tab => (
@@ -276,12 +434,37 @@ export default function SavingsCompare({ plans }: { plans: Plan[] }) {
       </div>
 
       <main className="max-w-3xl mx-auto px-4 py-5 space-y-4">
+        <QuoteBucketPicker
+          selectedTerm={selectedTerm}
+          selectedMode={selectedMode}
+          counts={bucketCounts}
+          onTermChange={setSelectedTerm}
+          onModeChange={setSelectedMode}
+        />
 
-        {/* ─── TAB 1: RANKING ─── */}
-        {activeTab === 'rank' && (
+        <BucketAvailability
+          counts={bucketCounts}
+          selectedBucket={selectedBucket}
+          onPick={(term, mode) => {
+            setSelectedTerm(term);
+            setSelectedMode(mode);
+          }}
+        />
+
+        {visiblePlans.length === 0 && (
+          <div className="rounded-lg border border-dashed bg-white p-5 text-center shadow-sm">
+            <h2 className="text-base font-bold text-gray-900">{comparisonBucketLabel(selectedBucket)} 未有實際 quote</h2>
+            <p className="mx-auto mt-2 max-w-md text-sm leading-6 text-gray-500">
+              呢格會等下一批 PDF/portal data 抽到之後先出 curve。暫時唔用其他付款方式推算。
+            </p>
+          </div>
+        )}
+
+        {/* ─── TAB 1: SORTING ─── */}
+        {visiblePlans.length > 0 && activeTab === 'rank' && (
           <div className="space-y-4">
             <div className="bg-white rounded-2xl shadow-sm border p-4">
-              <p className="text-sm font-semibold text-gray-700 mb-3">揀你最重視嘅因素</p>
+              <p className="text-sm font-semibold text-gray-700 mb-3">揀排序用嘅資料指標</p>
               <div className="space-y-3">
                 {(Object.keys(weights) as WeightKey[]).map(key => (
                   <div key={key}>
@@ -308,7 +491,9 @@ export default function SavingsCompare({ plans }: { plans: Plan[] }) {
                 return (
                   <div key={planKey(plan)} className="bg-white rounded-2xl shadow-sm border p-4">
                     <div className="flex items-start gap-3">
-                      <span className="text-3xl font-black mt-0.5" style={{ color }}>#{i + 1}</span>
+                      <span className="mt-0.5 rounded-md bg-gray-100 px-2 py-1 text-xs font-bold text-gray-600">
+                        排序 {i + 1}
+                      </span>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-baseline gap-2 flex-wrap">
                           <span className="font-bold text-gray-900">{plan.company_zh}</span>
@@ -344,22 +529,22 @@ export default function SavingsCompare({ plans }: { plans: Plan[] }) {
             </div>
 
             <p className="text-xs text-gray-400 text-center px-2">
-              排名由用戶自訂權重產生，不構成任何投保建議。本平台不安排任何保險合約。
+              排序由用戶自選指標計算，只作資料展示，不構成任何投保、轉保或退保建議。本平台不安排任何保險合約。
             </p>
           </div>
         )}
 
         {/* ─── TAB 2: X-RAY ─── */}
-        {activeTab === 'xray' && (
+        {visiblePlans.length > 0 && activeTab === 'xray' && (
           <div className="space-y-4">
             <div className="bg-amber-50 border border-amber-200 rounded-2xl p-4">
-              <p className="text-sm font-semibold text-amber-900">⚠️ FWD PDF 已接入，但數字仍需逐份對原文</p>
+              <p className="text-sm font-semibold text-amber-900">注意：FWD PDF 已接入，但數字仍需逐份對原文</p>
               <p className="text-xs text-amber-700 mt-1">
-                呢頁有 {plans.length} 個 savings-like 計劃，當中 {pdfPlanCount} 個來自 FWD proposal PDF。不同保費起點用「退保價值 / 已供保費」百分比比較。
+                呢格有 {visiblePlans.length} 個 savings-like 計劃，當中 {pdfPlanCount} 個來自 FWD proposal PDF。所有 curve 只喺同一付款條件內比較。
               </p>
             </div>
 
-            <SurrenderValueChart plans={plans} />
+            <SurrenderValueChart plans={visiblePlans} />
 
             {/* Early loss */}
             <div className="bg-white rounded-2xl shadow-sm border p-4 space-y-5">
@@ -446,7 +631,7 @@ export default function SavingsCompare({ plans }: { plans: Plan[] }) {
         )}
 
         {/* ─── TAB 3: TABLE ─── */}
-        {activeTab === 'table' && (
+        {visiblePlans.length > 0 && activeTab === 'table' && (
           <div className="space-y-4">
             {/* Year selector */}
             <div className="bg-white rounded-2xl shadow-sm border p-4">
@@ -467,7 +652,7 @@ export default function SavingsCompare({ plans }: { plans: Plan[] }) {
 
             {/* Cards per year */}
             {selectedYears.map(year => {
-              const rows = plans.map(p => ({
+              const rows = visiblePlans.map(p => ({
                 plan: p,
                 row: p.surrender_value_table.find(r => r.year === year),
               }));
@@ -534,6 +719,11 @@ export default function SavingsCompare({ plans }: { plans: Plan[] }) {
         <div className="text-center text-xs text-gray-400 space-y-1 pt-2">
           <p>以上資料僅供參考，不構成任何投保建議。本平台不安排任何保險合約。</p>
           <p>數據來源：各保險公司建議書（2026年5月）。非保證部分可能與實際有重大差異。</p>
+          <p>
+            <Link href="/compliance" className="font-semibold text-blue-600 hover:text-blue-700">
+              查看資料排序及模擬限制
+            </Link>
+          </p>
         </div>
       </main>
     </div>

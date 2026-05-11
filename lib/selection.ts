@@ -7,6 +7,7 @@ type ComparisonRow = {
 export type ComparisonPlanLike = {
   company: string;
   category: string;
+  comparison_bucket?: string;
   product_name_zh: string;
   source_kind?: string;
   surrender_value_table: ComparisonRow[];
@@ -21,6 +22,10 @@ function normalizeProductName(name: string) {
     .toLowerCase()
     .replace(/[·‧．・\s()[\]（）【】「」,，.。:：-]/g, '')
     .replace(/保險計劃$/g, '');
+}
+
+function bucketKey(plan: ComparisonPlanLike) {
+  return plan.comparison_bucket ?? 'UNBUCKETED';
 }
 
 function ratioAt(plan: ComparisonPlanLike, year: number) {
@@ -46,7 +51,7 @@ function shouldReplaceDuplicate(current: ComparisonPlanLike, candidate: Comparis
 
 export function selectTopComparisonPlans<T extends ComparisonPlanLike>(
   plans: T[],
-  { limitPerGroup = 3 }: SelectionOptions = {}
+  { limitPerGroup = 2 }: SelectionOptions = {}
 ) {
   const deduped = new Map<string, T>();
 
@@ -54,6 +59,7 @@ export function selectTopComparisonPlans<T extends ComparisonPlanLike>(
     const key = [
       plan.company,
       plan.category,
+      bucketKey(plan),
       normalizeProductName(plan.product_name_zh),
     ].join('|');
     const current = deduped.get(key);
@@ -64,7 +70,7 @@ export function selectTopComparisonPlans<T extends ComparisonPlanLike>(
 
   const groups = new Map<string, T[]>();
   for (const plan of deduped.values()) {
-    const key = `${plan.company}|${plan.category}`;
+    const key = `${plan.company}|${plan.category}|${bucketKey(plan)}`;
     groups.set(key, [...(groups.get(key) ?? []), plan]);
   }
 

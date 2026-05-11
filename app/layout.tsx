@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "保險比較 — 數據話事，唔靠人講",
-  description: "香港儲蓄保險透明比較平台。公開評分公式，隱藏費用X-Ray，唔推薦唔銷售，只show數據。",
+  description: "香港保險產品資料整理、排序及模擬平台。公開資料來源，不作投保建議，不安排保險合約。",
 };
 
 export default function RootLayout({

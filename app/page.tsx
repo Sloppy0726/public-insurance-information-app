@@ -40,6 +40,12 @@ export default function Home() {
               >
                 儲蓄保 X-Ray
               </Link>
+              <Link
+                href="/compliance"
+                className="rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:border-slate-500"
+              >
+                合規說明
+              </Link>
             </div>
           </div>
         </div>
@@ -123,11 +129,11 @@ export default function Home() {
             },
             {
               title: '下一步',
-              body: '批量匯入更多 insurance papers，建立人工QA欄位，再做按需要輸入嘅 AI comparison assistant。',
+              body: '批量匯入更多 insurance papers，建立人工QA欄位，再做資金情境模擬同資料排序 assistant。',
             },
             {
               title: '合規方向',
-              body: '全程用「資料比較」語氣，避免投保建議、產品推薦、代理排序，廣告位同結果排序分開標示。',
+              body: '全程用「資料排序」同「情境模擬」語氣，避免投保建議、產品推薦、代理排序，廣告位同結果分開標示。',
             },
           ].map(item => (
             <div key={item.title} className="rounded-lg border bg-white p-4 shadow-sm">

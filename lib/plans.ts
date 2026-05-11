@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import type { Plan, ProductBatch, ProductSummary, ProductValuePoint } from './types';
+import { comparisonBucketLabel, deriveComparisonBucket, normalizePaymentMode, paymentTermBucketFromYears } from './quote-buckets';
 import { selectTopComparisonPlans } from './selection';
 
 export function loadPlans(category: string): Plan[] {
@@ -55,13 +56,14 @@ function productPremium(product: ProductSummary, rows: ProductValuePoint[]) {
   const portalPremium = product.premium?.portal_premium ?? 0;
   const paymentTermYears = product.premium?.payment_term_years ?? 1;
   const maxPaid = Math.max(...rows.map(row => row.total_paid), portalPremium, 0);
-  const isAnnual = product.premium?.payment_mode === 'ANNUAL';
-  const annualEquivalent = isAnnual ? portalPremium : portalPremium;
+  const paymentMode = product.premium?.payment_mode;
+  const normalizedMode = normalizePaymentMode(paymentMode);
 
   return {
-    payment_mode: product.premium?.payment_mode,
-    monthly: annualEquivalent / 12,
-    annual_equivalent: annualEquivalent,
+    payment_mode: paymentMode,
+    actual_premium: portalPremium,
+    monthly: normalizedMode === 'MONTHLY' ? portalPremium : 0,
+    annual_equivalent: normalizedMode === 'ANNUAL' ? portalPremium : 0,
     payment_term_years: paymentTermYears || 1,
     total_premium_paid: Math.round(maxPaid),
   };
@@ -77,6 +79,10 @@ function productToSavingsPlan(product: ProductSummary): Plan | null {
   const year3Loss = lossForYear(rows, 3);
   const year5Loss = lossForYear(rows, 5);
   const row20 = findRow(rows, 20);
+  const premium = productPremium(product, rows);
+  const comparisonBucket = deriveComparisonBucket(premium.payment_term_years, premium.payment_mode);
+  const paymentModeBucket = normalizePaymentMode(premium.payment_mode);
+  const paymentTermBucket = paymentTermBucketFromYears(premium.payment_term_years);
   const nonGuaranteedRatio20 = row20 && row20.total_surrender > 0
     ? Math.max(0, fmtPct(((row20.total_surrender - row20.guaranteed) / row20.total_surrender) * 100))
     : 0;
@@ -89,9 +95,12 @@ function productToSavingsPlan(product: ProductSummary): Plan | null {
     product_name_zh: product.product_name_zh,
     category: product.category,
     category_label: product.category_label,
+    comparison_bucket: comparisonBucket,
+    payment_term_bucket: paymentTermBucket,
+    payment_mode_bucket: paymentModeBucket,
     currency: product.currency,
     quote_profile: product.quote_profile ?? { age: 30, gender: 'M', smoker: false },
-    premium: productPremium(product, rows),
+    premium,
     policy_term: product.policy_term ?? 'As illustrated',
     surrender_value_table: rows.map(row => ({
       year: row.year,
@@ -111,20 +120,32 @@ function productToSavingsPlan(product: ProductSummary): Plan | null {
       total_non_guaranteed_ratio_20y: nonGuaranteedRatio20,
     },
     source_pdf: product.source.filename,
-    quote_date: product.source.download_date,
+    quote_date: product.source.quote_date ?? product.source.download_date,
     source_kind: 'pdf-proposal',
-    comparison_basis: `${product.category_label} · ${product.premium?.payment_mode === 'SINGLE' ? '一次性保費' : '年繳保費'} · 退保價值以已供保費百分比比較`,
+    comparison_basis: `${product.category_label} · ${comparisonBucketLabel(comparisonBucket)} · 實際quote保費比較`,
   };
 }
 
 export function loadSavingsComparisonPlans(): Plan[] {
-  const samplePlans = loadPlans('savings').map(plan => ({
-    ...plan,
-    id: `sample-${plan.company}-${plan.product_name}`.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-    category_label: '儲蓄',
-    source_kind: 'sample-json' as const,
-    comparison_basis: '月供 USD 1,300 左右 · 5年供 · 退保價值以已供保費百分比比較',
-  }));
+  const samplePlans = loadPlans('savings').map(plan => {
+    const paymentMode = plan.premium.payment_mode ?? 'MONTHLY';
+    const comparisonBucket = deriveComparisonBucket(plan.premium.payment_term_years, paymentMode);
+    return {
+      ...plan,
+      id: `sample-${plan.company}-${plan.product_name}`.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      category_label: '儲蓄',
+      comparison_bucket: comparisonBucket,
+      payment_term_bucket: paymentTermBucketFromYears(plan.premium.payment_term_years),
+      payment_mode_bucket: normalizePaymentMode(paymentMode),
+      premium: {
+        ...plan.premium,
+        payment_mode: paymentMode,
+        actual_premium: paymentMode === 'MONTHLY' ? plan.premium.monthly : plan.premium.annual_equivalent,
+      },
+      source_kind: 'sample-json' as const,
+      comparison_basis: `${comparisonBucketLabel(comparisonBucket)} · 樣本PDF實際quote保費比較`,
+    };
+  });
   const productPlans = loadProductBatches()
     .flatMap(batch => batch.products)
     .map(productToSavingsPlan)

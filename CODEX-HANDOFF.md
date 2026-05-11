@@ -11,8 +11,9 @@ Tagline: 「保險公司唔會話你知嘅嘢，我哋話你知。」
 ### Working pages
 - `/` — Dashboard overview showing total products, category coverage, FWD batch status, and links into the demo views
 - `/products` — Product library demo combining FWD PDF extracts, savings samples, and VHIS seed data with category filters/search/source trace
+- `/compliance` — Compliance disclosure page explaining data sorting, scenario simulation limits, FNA trigger points, and IA source links
 - `/savings` — Savings plan comparison with 3 tabs:
-  - **自訂排名**: 4 weight sliders (early surrender loss / guarantee / projected return / long-term growth) → instant re-ranking of 3 plans
+  - **自訂排序**: 4 weight sliders (early surrender loss / guarantee / projected return / long-term growth) → user-controlled sorting only, not product recommendation
   - **費用X-Ray**: Surrender value line chart, early surrender loss bars (year 3 + year 5), guaranteed vs non-guaranteed stacked bars, IRR comparison
   - **逐年數據**: Year selector → card per year showing each plan's surrender value (red = loss, green = profit)
 
@@ -22,9 +23,11 @@ app/
 ├── page.tsx                  ← Homepage
 ├── layout.tsx                ← Root layout
 ├── globals.css
+└── compliance/
+    └── page.tsx              ← Compliance disclosure and official IA links
 └── savings/
     ├── page.tsx              ← Server component, loads JSON → passes to client
-    └── SavingsCompare.tsx    ← Full client-side comparison UI (3 tabs)
+    └── SavingsCompare.tsx    ← Full client-side comparison UI (3 tabs + nine-bucket picker)
 └── products/
     ├── page.tsx              ← Loads unified product catalog
     └── ProductLibrary.tsx    ← Product database UI with filters/search
@@ -32,6 +35,7 @@ app/
 lib/
 ├── types.ts                  ← Plan, MedicalPlan, ProductSummary types
 ├── plans.ts                  ← loadPlans(category) reads savings JSON files
+├── quote-buckets.ts          ← 2/5/10-year x monthly/annual/fullpay comparison bucket helpers
 └── products.ts               ← loadProductCatalog() merges PDFs + seed data
 
 data/
@@ -52,7 +56,9 @@ scripts/
 └── build-product-data.mjs    ← Parses FWD manifest/PDFs into data/products JSON
 
 tests/
-└── product-data.test.mjs     ← Node tests for manifest parsing/id/metric extraction
+├── product-data.test.mjs     ← Node tests for manifest parsing/id/metric extraction
+├── quote-buckets.test.mjs    ← Bucket mapping tests
+└── savings-selection.test.mjs ← Bucket-aware top-two selection tests
 ```
 
 ### Data format (all 3 plans follow this schema)
@@ -310,7 +316,7 @@ How to succeed in HK:
 - Own the Cantonese "show me the numbers" position: early surrender loss, guaranteed vs non-guaranteed, breakeven year, and source documents should be visible before any marketing.
 - Stay narrower than 10Life at first: savings insurance transparency and VHIS tax/premium comparison are enough to build a memorable product.
 - Build trust with receipts: every plan card should link to a source PDF, quote date, profile, and extraction notes.
-- Keep IA compliance in the product language: no "best", no "recommended", no purchase-inducing ranking copy. Rankings are user-weighted sorting only.
+- Keep IA compliance in the product language: no "best", no "recommended", no purchase-inducing ranking copy. Use "sorting" and "scenario simulation"; never present the first result as suitable for the user.
 - Make the X-Ray shareable: WhatsApp/IG image cards are likely a stronger growth loop than a generic comparison table.
 - Local SEO topics to target: `儲蓄保退保`, `保證回報負數`, `非保證紅利`, `VHIS 扣稅`, `自願醫保保費`, `危疾保等候期`.
 - Monetize separately from rankings: clearly labelled sponsored agent/broker slots, source sponsorship, or directory listing. If the business wants leads/applications/advice, get licensed or partner with a licensed broker and update compliance wording.
@@ -352,9 +358,9 @@ Hong Kong Insurance Authority rules apply. This platform is NOT a licensed broke
 > 以上資料僅供參考，不構成任何投保建議。本平台不安排任何保險合約。
 
 **Advertising slots** (when added later) must be:
-- Visually separate from comparison tables/rankings
+- Visually separate from comparison tables/sorting results
 - Labelled clearly as "推廣 · Sponsored"
-- Never inside ranking tables or influencing scores
+- Never inside sorting tables or influencing scores
 
 **AI chat** (when added later):
 - Must never say "you should buy X"

@@ -275,6 +275,10 @@ export default function ProductLibrary({ products, stats, latestBatchGeneratedAt
 
         <p className="mx-auto mt-6 max-w-3xl text-center text-xs leading-relaxed text-slate-500">
           以上資料只作資料整理及比較展示，不構成投保、轉保或退保建議。本平台現階段不安排任何保險合約，PDF抽取數據需再按原文件核對。
+          {' '}
+          <Link href="/compliance" className="font-semibold text-blue-700 hover:text-blue-800">
+            查看資料排序及模擬限制
+          </Link>
         </p>
       </main>
     </div>
