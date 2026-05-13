@@ -1,0 +1,846 @@
+{
+  "capturedAt": "2026-05-12",
+  "insurer": "BOC Life",
+  "source": {
+    "portal": "BOC Life proposal portal",
+    "portalFirst": true,
+    "pdfFallbackUsed": true,
+    "downloadedPdfFile": "Proposal_VIPVIP64F5F72D-DDEE-7D27-5ADE-BCB8FBEC472F.pdf"
+  },
+  "quoteProfile": {
+    "productCode": "IBW65",
+    "productNameZh": "薪火傳承環球終身壽險計劃",
+    "comparisonBucket": "10Y_SINGLE",
+    "insuredNameZh": "測試",
+    "insuredAge": 46,
+    "gender": "男",
+    "smoking": "不吸煙",
+    "staff": "否",
+    "currency": "USD",
+    "paymentMode": "SINGLE",
+    "paymentModeLabel": "一次性供款",
+    "paymentModeSourceLabel": "躉繳保費",
+    "paymentTermYears": 10,
+    "coverageTermLabel": "終身",
+    "targetPremium": 15600.0,
+    "targetPremiumCurrency": "USD",
+    "actualPremium": 15600.0,
+    "actualPremiumCurrency": "USD",
+    "sumAssured": 15600,
+    "sumAssuredCurrency": "USD",
+    "proposalPages": 14,
+    "proposalNumber": "131HK0520260512185501"
+  },
+  "breakEven": {
+    "policyYear": 4,
+    "basis": "First policy year where projected total cash value exceeds total paid premium.",
+    "comparison": {
+      "year3": {
+        "paidPremium": 15600,
+        "cashValueTotal": 14597
+      },
+      "year4": {
+        "paidPremium": 15600,
+        "cashValueTotal": 15793
+      }
+    }
+  },
+  "milestones": {
+    "policyYear10": {
+      "paidPremium": 15600,
+      "cashValue": {
+        "guaranteed": 13268,
+        "nonGuaranteedAccumulatedAnnualBonusAndInterest": 19,
+        "nonGuaranteedTerminalBonus": 7978,
+        "total": 21265
+      },
+      "deathBenefit": {
+        "guaranteed": 20935,
+        "nonGuaranteedAccumulatedAnnualBonusAndInterest": 19,
+        "nonGuaranteedTerminalBonus": 311,
+        "total": 21265
+      }
+    },
+    "policyYear20": {
+      "paidPremium": 15600,
+      "cashValue": {
+        "guaranteed": 14587,
+        "nonGuaranteedAccumulatedAnnualBonusAndInterest": 57,
+        "nonGuaranteedTerminalBonus": 22902,
+        "total": 37546
+      },
+      "deathBenefit": {
+        "guaranteed": 21528,
+        "nonGuaranteedAccumulatedAnnualBonusAndInterest": 57,
+        "nonGuaranteedTerminalBonus": 15961,
+        "total": 37546
+      }
+    },
+    "policyYear30": {
+      "paidPremium": 15600,
+      "cashValue": {
+        "guaranteed": 17737,
+        "nonGuaranteedAccumulatedAnnualBonusAndInterest": 125,
+        "nonGuaranteedTerminalBonus": 47992,
+        "total": 65854
+      },
+      "deathBenefit": {
+        "guaranteed": 21528,
+        "nonGuaranteedAccumulatedAnnualBonusAndInterest": 125,
+        "nonGuaranteedTerminalBonus": 44201,
+        "total": 65854
+      }
+    }
+  },
+  "ageMilestones": {
+    "age65": {
+      "cashValue": {
+        "guaranteed": 14343,
+        "nonGuaranteedAccumulatedAnnualBonusAndInterest": 53,
+        "nonGuaranteedTerminalBonus": 20865,
+        "total": 35261
+      },
+      "deathBenefit": {
+        "guaranteed": 21528,
+        "nonGuaranteedAccumulatedAnnualBonusAndInterest": 53,
+        "nonGuaranteedTerminalBonus": 13680,
+        "total": 35261
+      }
+    },
+    "age100": {
+      "cashValue": {
+        "guaranteed": 18064,
+        "nonGuaranteedAccumulatedAnnualBonusAndInterest": 496,
+        "nonGuaranteedTerminalBonus": 225469,
+        "total": 244029
+      },
+      "deathBenefit": {
+        "guaranteed": 21528,
+        "nonGuaranteedAccumulatedAnnualBonusAndInterest": 496,
+        "nonGuaranteedTerminalBonus": 222005,
+        "total": 244029
+      }
+    }
+  },
+  "scenarioSensitivity": {
+    "cashValueTotal": {
+      "policyYear10": {
+        "pessimisticTotal": 18467,
+        "currentIllustrationTotal": 21265,
+        "optimisticTotal": 24226
+      },
+      "policyYear20": {
+        "pessimisticTotal": 29510,
+        "currentIllustrationTotal": 37546,
+        "optimisticTotal": 46050
+      },
+      "policyYear30": {
+        "pessimisticTotal": 49006,
+        "currentIllustrationTotal": 65854,
+        "optimisticTotal": 83681
+      },
+      "age65": {
+        "pessimisticTotal": 27938,
+        "currentIllustrationTotal": 35261,
+        "optimisticTotal": 43007
+      },
+      "age100": {
+        "pessimisticTotal": 164876,
+        "currentIllustrationTotal": 244029,
+        "optimisticTotal": 327833
+      }
+    },
+    "deathBenefitTotal": {
+      "policyYear10": {
+        "pessimisticTotal": 20948,
+        "currentIllustrationTotal": 21265,
+        "optimisticTotal": 24226
+      },
+      "policyYear20": {
+        "pessimisticTotal": 29510,
+        "currentIllustrationTotal": 37546,
+        "optimisticTotal": 46050
+      },
+      "policyYear30": {
+        "pessimisticTotal": 49006,
+        "currentIllustrationTotal": 65854,
+        "optimisticTotal": 83681
+      },
+      "age65": {
+        "pessimisticTotal": 27938,
+        "currentIllustrationTotal": 35261,
+        "optimisticTotal": 43007
+      },
+      "age100": {
+        "pessimisticTotal": 164876,
+        "currentIllustrationTotal": 244029,
+        "optimisticTotal": 327833
+      }
+    }
+  },
+  "yearlyValues": [
+    {
+      "year": 1,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 12605,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 2,
+      "nonGuaranteedTerminalBonus": 16,
+      "totalSurrenderValue": 12623,
+      "guaranteedDeathBenefit": 15600,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 2,
+      "nonGuaranteedDeathTerminalBonus": 0,
+      "totalDeathBenefit": 15602
+    },
+    {
+      "year": 2,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 12918,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 3,
+      "nonGuaranteedTerminalBonus": 32,
+      "totalSurrenderValue": 12953,
+      "guaranteedDeathBenefit": 16193,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 3,
+      "nonGuaranteedDeathTerminalBonus": 0,
+      "totalDeathBenefit": 16196
+    },
+    {
+      "year": 3,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 13268,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 5,
+      "nonGuaranteedTerminalBonus": 1324,
+      "totalSurrenderValue": 14597,
+      "guaranteedDeathBenefit": 16786,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 5,
+      "nonGuaranteedDeathTerminalBonus": 0,
+      "totalDeathBenefit": 16791
+    },
+    {
+      "year": 4,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 13268,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 7,
+      "nonGuaranteedTerminalBonus": 2518,
+      "totalSurrenderValue": 15793,
+      "guaranteedDeathBenefit": 17378,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 7,
+      "nonGuaranteedDeathTerminalBonus": 0,
+      "totalDeathBenefit": 17385
+    },
+    {
+      "year": 5,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 13268,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 8,
+      "nonGuaranteedTerminalBonus": 4297,
+      "totalSurrenderValue": 17573,
+      "guaranteedDeathBenefit": 17971,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 8,
+      "nonGuaranteedDeathTerminalBonus": 0,
+      "totalDeathBenefit": 17979
+    },
+    {
+      "year": 6,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 13268,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 10,
+      "nonGuaranteedTerminalBonus": 5024,
+      "totalSurrenderValue": 18302,
+      "guaranteedDeathBenefit": 18564,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 10,
+      "nonGuaranteedDeathTerminalBonus": 0,
+      "totalDeathBenefit": 18574
+    },
+    {
+      "year": 7,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 13268,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 12,
+      "nonGuaranteedTerminalBonus": 5726,
+      "totalSurrenderValue": 19006,
+      "guaranteedDeathBenefit": 19157,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 12,
+      "nonGuaranteedDeathTerminalBonus": 0,
+      "totalDeathBenefit": 19169
+    },
+    {
+      "year": 8,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 13268,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 15,
+      "nonGuaranteedTerminalBonus": 6458,
+      "totalSurrenderValue": 19741,
+      "guaranteedDeathBenefit": 19750,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 15,
+      "nonGuaranteedDeathTerminalBonus": 0,
+      "totalDeathBenefit": 19765
+    },
+    {
+      "year": 9,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 13268,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 17,
+      "nonGuaranteedTerminalBonus": 7205,
+      "totalSurrenderValue": 20490,
+      "guaranteedDeathBenefit": 20342,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 17,
+      "nonGuaranteedDeathTerminalBonus": 131,
+      "totalDeathBenefit": 20490
+    },
+    {
+      "year": 10,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 13268,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 19,
+      "nonGuaranteedTerminalBonus": 7978,
+      "totalSurrenderValue": 21265,
+      "guaranteedDeathBenefit": 20935,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 19,
+      "nonGuaranteedDeathTerminalBonus": 311,
+      "totalDeathBenefit": 21265
+    },
+    {
+      "year": 11,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 13399,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 22,
+      "nonGuaranteedTerminalBonus": 8976,
+      "totalSurrenderValue": 22397,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 22,
+      "nonGuaranteedDeathTerminalBonus": 847,
+      "totalDeathBenefit": 22397
+    },
+    {
+      "year": 12,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 13424,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 25,
+      "nonGuaranteedTerminalBonus": 9933,
+      "totalSurrenderValue": 23382,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 25,
+      "nonGuaranteedDeathTerminalBonus": 1829,
+      "totalDeathBenefit": 23382
+    },
+    {
+      "year": 13,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 13427,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 29,
+      "nonGuaranteedTerminalBonus": 11192,
+      "totalSurrenderValue": 24648,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 29,
+      "nonGuaranteedDeathTerminalBonus": 3091,
+      "totalDeathBenefit": 24648
+    },
+    {
+      "year": 14,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 13438,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 32,
+      "nonGuaranteedTerminalBonus": 12563,
+      "totalSurrenderValue": 26033,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 32,
+      "nonGuaranteedDeathTerminalBonus": 4473,
+      "totalDeathBenefit": 26033
+    },
+    {
+      "year": 15,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 13489,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 36,
+      "nonGuaranteedTerminalBonus": 14028,
+      "totalSurrenderValue": 27553,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 36,
+      "nonGuaranteedDeathTerminalBonus": 5989,
+      "totalDeathBenefit": 27553
+    },
+    {
+      "year": 16,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 13669,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 40,
+      "nonGuaranteedTerminalBonus": 15510,
+      "totalSurrenderValue": 29219,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 40,
+      "nonGuaranteedDeathTerminalBonus": 7651,
+      "totalDeathBenefit": 29219
+    },
+    {
+      "year": 17,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 13960,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 44,
+      "nonGuaranteedTerminalBonus": 17043,
+      "totalSurrenderValue": 31047,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 44,
+      "nonGuaranteedDeathTerminalBonus": 9475,
+      "totalDeathBenefit": 31047
+    },
+    {
+      "year": 18,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 14110,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 48,
+      "nonGuaranteedTerminalBonus": 18896,
+      "totalSurrenderValue": 33054,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 48,
+      "nonGuaranteedDeathTerminalBonus": 11478,
+      "totalDeathBenefit": 33054
+    },
+    {
+      "year": 19,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 14343,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 53,
+      "nonGuaranteedTerminalBonus": 20865,
+      "totalSurrenderValue": 35261,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 53,
+      "nonGuaranteedDeathTerminalBonus": 13680,
+      "totalDeathBenefit": 35261
+    },
+    {
+      "year": 20,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 14587,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 57,
+      "nonGuaranteedTerminalBonus": 22902,
+      "totalSurrenderValue": 37546,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 57,
+      "nonGuaranteedDeathTerminalBonus": 15961,
+      "totalDeathBenefit": 37546
+    },
+    {
+      "year": 21,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 15063,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 63,
+      "nonGuaranteedTerminalBonus": 24721,
+      "totalSurrenderValue": 39847,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 63,
+      "nonGuaranteedDeathTerminalBonus": 18256,
+      "totalDeathBenefit": 39847
+    },
+    {
+      "year": 22,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 15617,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 68,
+      "nonGuaranteedTerminalBonus": 26652,
+      "totalSurrenderValue": 42337,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 68,
+      "nonGuaranteedDeathTerminalBonus": 20741,
+      "totalDeathBenefit": 42337
+    },
+    {
+      "year": 23,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 15882,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 75,
+      "nonGuaranteedTerminalBonus": 29077,
+      "totalSurrenderValue": 45034,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 75,
+      "nonGuaranteedDeathTerminalBonus": 23431,
+      "totalDeathBenefit": 45034
+    },
+    {
+      "year": 24,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 16154,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 81,
+      "nonGuaranteedTerminalBonus": 31722,
+      "totalSurrenderValue": 47957,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 81,
+      "nonGuaranteedDeathTerminalBonus": 26348,
+      "totalDeathBenefit": 47957
+    },
+    {
+      "year": 25,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 16433,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 87,
+      "nonGuaranteedTerminalBonus": 34050,
+      "totalSurrenderValue": 50570,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 87,
+      "nonGuaranteedDeathTerminalBonus": 28955,
+      "totalDeathBenefit": 50570
+    },
+    {
+      "year": 26,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 16719,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 94,
+      "nonGuaranteedTerminalBonus": 36508,
+      "totalSurrenderValue": 53321,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 94,
+      "nonGuaranteedDeathTerminalBonus": 31699,
+      "totalDeathBenefit": 53321
+    },
+    {
+      "year": 27,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 17012,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 101,
+      "nonGuaranteedTerminalBonus": 39103,
+      "totalSurrenderValue": 56216,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 101,
+      "nonGuaranteedDeathTerminalBonus": 34587,
+      "totalDeathBenefit": 56216
+    },
+    {
+      "year": 28,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 17314,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 109,
+      "nonGuaranteedTerminalBonus": 41844,
+      "totalSurrenderValue": 59267,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 109,
+      "nonGuaranteedDeathTerminalBonus": 37630,
+      "totalDeathBenefit": 59267
+    },
+    {
+      "year": 29,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 17518,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 116,
+      "nonGuaranteedTerminalBonus": 44842,
+      "totalSurrenderValue": 62476,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 116,
+      "nonGuaranteedDeathTerminalBonus": 40832,
+      "totalDeathBenefit": 62476
+    },
+    {
+      "year": 30,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 17737,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 125,
+      "nonGuaranteedTerminalBonus": 47992,
+      "totalSurrenderValue": 65854,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 125,
+      "nonGuaranteedDeathTerminalBonus": 44201,
+      "totalDeathBenefit": 65854
+    },
+    {
+      "year": 31,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 17753,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 134,
+      "nonGuaranteedTerminalBonus": 51826,
+      "totalSurrenderValue": 69713,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 134,
+      "nonGuaranteedDeathTerminalBonus": 48051,
+      "totalDeathBenefit": 69713
+    },
+    {
+      "year": 32,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 17767,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 143,
+      "nonGuaranteedTerminalBonus": 55897,
+      "totalSurrenderValue": 73807,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 143,
+      "nonGuaranteedDeathTerminalBonus": 52136,
+      "totalDeathBenefit": 73807
+    },
+    {
+      "year": 33,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 17779,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 153,
+      "nonGuaranteedTerminalBonus": 60222,
+      "totalSurrenderValue": 78154,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 153,
+      "nonGuaranteedDeathTerminalBonus": 56473,
+      "totalDeathBenefit": 78154
+    },
+    {
+      "year": 34,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 17790,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 164,
+      "nonGuaranteedTerminalBonus": 64816,
+      "totalSurrenderValue": 82770,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 164,
+      "nonGuaranteedDeathTerminalBonus": 61078,
+      "totalDeathBenefit": 82770
+    },
+    {
+      "year": 35,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 17799,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 175,
+      "nonGuaranteedTerminalBonus": 69694,
+      "totalSurrenderValue": 87668,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 175,
+      "nonGuaranteedDeathTerminalBonus": 65965,
+      "totalDeathBenefit": 87668
+    },
+    {
+      "year": 36,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 17806,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 186,
+      "nonGuaranteedTerminalBonus": 74876,
+      "totalSurrenderValue": 92868,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 186,
+      "nonGuaranteedDeathTerminalBonus": 71154,
+      "totalDeathBenefit": 92868
+    },
+    {
+      "year": 37,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 17812,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 198,
+      "nonGuaranteedTerminalBonus": 80380,
+      "totalSurrenderValue": 98390,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 198,
+      "nonGuaranteedDeathTerminalBonus": 76664,
+      "totalDeathBenefit": 98390
+    },
+    {
+      "year": 38,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 17816,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 210,
+      "nonGuaranteedTerminalBonus": 86226,
+      "totalSurrenderValue": 104252,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 210,
+      "nonGuaranteedDeathTerminalBonus": 82514,
+      "totalDeathBenefit": 104252
+    },
+    {
+      "year": 39,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 17818,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 223,
+      "nonGuaranteedTerminalBonus": 92436,
+      "totalSurrenderValue": 110477,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 223,
+      "nonGuaranteedDeathTerminalBonus": 88726,
+      "totalDeathBenefit": 110477
+    },
+    {
+      "year": 40,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 17819,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 236,
+      "nonGuaranteedTerminalBonus": 99032,
+      "totalSurrenderValue": 117087,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 236,
+      "nonGuaranteedDeathTerminalBonus": 95323,
+      "totalDeathBenefit": 117087
+    },
+    {
+      "year": 41,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 17844,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 250,
+      "nonGuaranteedTerminalBonus": 105741,
+      "totalSurrenderValue": 123835,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 250,
+      "nonGuaranteedDeathTerminalBonus": 102057,
+      "totalDeathBenefit": 123835
+    },
+    {
+      "year": 42,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 17869,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 265,
+      "nonGuaranteedTerminalBonus": 112842,
+      "totalSurrenderValue": 130976,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 265,
+      "nonGuaranteedDeathTerminalBonus": 109183,
+      "totalDeathBenefit": 130976
+    },
+    {
+      "year": 43,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 17893,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 280,
+      "nonGuaranteedTerminalBonus": 120359,
+      "totalSurrenderValue": 138532,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 280,
+      "nonGuaranteedDeathTerminalBonus": 116724,
+      "totalDeathBenefit": 138532
+    },
+    {
+      "year": 44,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 17917,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 296,
+      "nonGuaranteedTerminalBonus": 128316,
+      "totalSurrenderValue": 146529,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 296,
+      "nonGuaranteedDeathTerminalBonus": 124705,
+      "totalDeathBenefit": 146529
+    },
+    {
+      "year": 45,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 17940,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 312,
+      "nonGuaranteedTerminalBonus": 136739,
+      "totalSurrenderValue": 154991,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 312,
+      "nonGuaranteedDeathTerminalBonus": 133151,
+      "totalDeathBenefit": 154991
+    },
+    {
+      "year": 46,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 17963,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 329,
+      "nonGuaranteedTerminalBonus": 145653,
+      "totalSurrenderValue": 163945,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 329,
+      "nonGuaranteedDeathTerminalBonus": 142088,
+      "totalDeathBenefit": 163945
+    },
+    {
+      "year": 47,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 17986,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 347,
+      "nonGuaranteedTerminalBonus": 154771,
+      "totalSurrenderValue": 173104,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 347,
+      "nonGuaranteedDeathTerminalBonus": 151229,
+      "totalDeathBenefit": 173104
+    },
+    {
+      "year": 48,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 18008,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 366,
+      "nonGuaranteedTerminalBonus": 162436,
+      "totalSurrenderValue": 180810,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 366,
+      "nonGuaranteedDeathTerminalBonus": 158916,
+      "totalDeathBenefit": 180810
+    },
+    {
+      "year": 49,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 18030,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 385,
+      "nonGuaranteedTerminalBonus": 170240,
+      "totalSurrenderValue": 188655,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 385,
+      "nonGuaranteedDeathTerminalBonus": 166742,
+      "totalDeathBenefit": 188655
+    },
+    {
+      "year": 50,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 18052,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 406,
+      "nonGuaranteedTerminalBonus": 178287,
+      "totalSurrenderValue": 196745,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 406,
+      "nonGuaranteedDeathTerminalBonus": 174811,
+      "totalDeathBenefit": 196745
+    },
+    {
+      "year": 51,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 18055,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 427,
+      "nonGuaranteedTerminalBonus": 189152,
+      "totalSurrenderValue": 207634,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 427,
+      "nonGuaranteedDeathTerminalBonus": 185679,
+      "totalDeathBenefit": 207634
+    },
+    {
+      "year": 52,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 18058,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 449,
+      "nonGuaranteedTerminalBonus": 200616,
+      "totalSurrenderValue": 219123,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 449,
+      "nonGuaranteedDeathTerminalBonus": 197146,
+      "totalDeathBenefit": 219123
+    },
+    {
+      "year": 53,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 18061,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 472,
+      "nonGuaranteedTerminalBonus": 212710,
+      "totalSurrenderValue": 231243,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 472,
+      "nonGuaranteedDeathTerminalBonus": 209243,
+      "totalDeathBenefit": 231243
+    },
+    {
+      "year": 54,
+      "totalPaid": 15600,
+      "guaranteedCashValue": 18064,
+      "nonGuaranteedAccumulatedAnnualBonusAndInterest": 496,
+      "nonGuaranteedTerminalBonus": 225469,
+      "totalSurrenderValue": 244029,
+      "guaranteedDeathBenefit": 21528,
+      "nonGuaranteedDeathAccumulatedAnnualBonusAndInterest": 496,
+      "nonGuaranteedDeathTerminalBonus": 222005,
+      "totalDeathBenefit": 244029
+    }
+  ],
+  "notes": [
+    "Portal single-pay quote uses 躉繳 label; standardized to USD 15,600 one-time premium for 10Y_SINGLE bucket as requested.",
+    "Break-even is inferred from the first policy-year row where 現金價值總額 exceeds 已繳總保費."
+  ],
+  "discountInfo": {
+    "discountAvailable": true,
+    "discountCode": "3GSPUS2512",
+    "discountDescription": "(躉繳美元保單)薪火傳承環球終身壽險計劃-保費折扣優惠",
+    "discountScope": "FIRST_YEAR_PREMIUM",
+    "premiumBeforeDiscount": 15600.0,
+    "premiumAfterDiscount": 14742.0,
+    "discountAmount": 858.0,
+    "discountRatePct": 5.5,
+    "discountCurrency": "USD"
+  }
+}

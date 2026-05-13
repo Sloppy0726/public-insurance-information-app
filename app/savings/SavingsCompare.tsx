@@ -116,7 +116,17 @@ type ChartPoint = {
   premiumLine: number;
 } & Record<string, number | null>;
 
-function SurrenderValueChart({ plans }: { plans: Plan[] }) {
+function SurrenderValueChart({
+  plans,
+  title = '退保價值走勢',
+  subtitle = '虛線 = 回本線 100%；所有計劃以已供保費比例比較',
+  badge = '1-30年',
+}: {
+  plans: Plan[];
+  title?: string;
+  subtitle?: string;
+  badge?: string;
+}) {
   const chartFrameRef = useRef<HTMLDivElement>(null);
   const [chartSize, setChartSize] = useState({ width: 0, height: 300 });
   const chartData: ChartPoint[] = KEY_YEARS.map(year => {
@@ -155,11 +165,11 @@ function SurrenderValueChart({ plans }: { plans: Plan[] }) {
     <div className="bg-white rounded-2xl shadow-sm border p-4">
       <div className="flex items-start justify-between gap-3 mb-3">
         <div>
-          <h2 className="font-semibold text-gray-900">退保價值走勢</h2>
-          <p className="text-xs text-gray-400 mt-1">虛線 = 回本線 100%；所有計劃以已供保費比例比較</p>
+          <h2 className="font-semibold text-gray-900">{title}</h2>
+          <p className="text-xs text-gray-400 mt-1">{subtitle}</p>
         </div>
         <span className="rounded-full bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700 whitespace-nowrap">
-          1-30年
+          {badge}
         </span>
       </div>
 
@@ -377,18 +387,24 @@ function BucketAvailability({
 export default function SavingsCompare({ plans }: { plans: Plan[] }) {
   const [selectedTerm, setSelectedTerm] = useState<PaymentTermBucket>('5Y');
   const [selectedMode, setSelectedMode] = useState<PaymentModeBucket>('ANNUAL');
+  const [selectedGroup, setSelectedGroup] = useState<'savings' | 'annuity'>('savings');
   const [weights, setWeights] = useState<Weights>({ earlyLoss: 25, guarantee: 25, projectedReturn: 25, longTerm: 25 });
   const [selectedYears, setSelectedYears] = useState<number[]>([3, 5, 10, 20, 30]);
-  const [activeTab, setActiveTab] = useState<'rank' | 'xray' | 'table'>('rank');
-  const bucketCounts = countByBucket(plans);
+  const [activeTab, setActiveTab] = useState<'rank' | 'xray' | 'table'>('xray');
+  const groupPlans = plans.filter(plan => selectedGroup === 'annuity' ? plan.category === 'annuity' : plan.category !== 'annuity');
+  const bucketCounts = countByBucket(groupPlans);
   const selectedBucket = bucketId(selectedTerm, selectedMode);
-  const visiblePlans = plans.filter(plan => plan.comparison_bucket === selectedBucket);
+  const visiblePlans = groupPlans.filter(plan => plan.comparison_bucket === selectedBucket);
+  const oneYearPlans = groupPlans
+    .filter(plan => plan.premium.payment_term_years === 1 && plan.surrender_value_table.length > 0)
+    .slice(0, 8);
 
   const scored = [...visiblePlans]
     .map((p, i) => ({ plan: p, score: calcScore(p, weights), color: COLORS[i % COLORS.length] }))
     .sort((a, b) => b.score - a.score);
   const pdfPlanCount = visiblePlans.filter(plan => plan.source_kind === 'pdf-proposal').length;
-  const totalPdfPlanCount = plans.filter(plan => plan.source_kind === 'pdf-proposal').length;
+  const bocPlanCount = visiblePlans.filter(plan => plan.company === 'BOC Life').length;
+  const totalPdfPlanCount = groupPlans.filter(plan => plan.source_kind === 'pdf-proposal').length;
 
   const toggleYear = (y: number) =>
     setSelectedYears(prev => prev.includes(y) ? prev.filter(x => x !== y) : [...prev, y].sort((a, b) => a - b));
@@ -398,13 +414,13 @@ export default function SavingsCompare({ plans }: { plans: Plan[] }) {
       {/* Header */}
       <header className="bg-white border-b sticky top-0 z-20 shadow-sm">
         <div className="max-w-3xl mx-auto px-4 py-3">
-          <h1 className="text-lg font-bold text-gray-900">儲蓄保比較</h1>
+          <h1 className="text-lg font-bold text-gray-900">儲蓄保 X-Ray</h1>
           <p className="text-xs text-gray-400">數據話事 · 只做排序同模擬</p>
         </div>
         {/* Quote profile badge */}
         <div className="max-w-3xl mx-auto px-4 pb-2">
           <span className="inline-flex items-center gap-1 bg-blue-50 text-blue-700 text-xs px-2 py-1 rounded-full">
-            30歲男 · 非吸煙 · {comparisonBucketLabel(selectedBucket)} · {visiblePlans.length}個計劃 · FWD PDF {pdfPlanCount}/{totalPdfPlanCount}個
+            {selectedGroup === 'annuity' ? '年金組' : '儲蓄組'} · {comparisonBucketLabel(selectedBucket)} · {visiblePlans.length}個計劃 · PDF {pdfPlanCount}/{totalPdfPlanCount}個 · BOC {bocPlanCount}個
           </span>
         </div>
       </header>
@@ -434,6 +450,33 @@ export default function SavingsCompare({ plans }: { plans: Plan[] }) {
       </div>
 
       <main className="max-w-3xl mx-auto px-4 py-5 space-y-4">
+        <div className="rounded-lg border bg-white p-2 shadow-sm">
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              onClick={() => setSelectedGroup('savings')}
+              className={`rounded-md px-3 py-2 text-sm font-semibold transition ${
+                selectedGroup === 'savings'
+                  ? 'bg-slate-900 text-white'
+                  : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
+              }`}
+            >
+              儲蓄 / 終身儲蓄
+            </button>
+            <button
+              type="button"
+              onClick={() => setSelectedGroup('annuity')}
+              className={`rounded-md px-3 py-2 text-sm font-semibold transition ${
+                selectedGroup === 'annuity'
+                  ? 'bg-slate-900 text-white'
+                  : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
+              }`}
+            >
+              年金
+            </button>
+          </div>
+        </div>
+
         <QuoteBucketPicker
           selectedTerm={selectedTerm}
           selectedMode={selectedMode}
@@ -520,6 +563,13 @@ export default function SavingsCompare({ plans }: { plans: Plan[] }) {
                             <p className="font-bold text-blue-600">{premiumLabel(plan)}</p>
                           </div>
                         </div>
+                        {plan.discount_info?.discount_available && (
+                          <p className="mt-2 text-xs text-emerald-700">
+                            折扣 {plan.discount_info.discount_code ?? ''} ·
+                            折後 ${fmt(plan.discount_info.premium_after_discount ?? 0)} ·
+                            減 ${fmt(plan.discount_info.discount_amount ?? 0)}
+                          </p>
+                        )}
                         <p className="mt-2 text-xs leading-relaxed text-gray-400">{plan.comparison_basis}</p>
                       </div>
                     </div>
@@ -544,7 +594,19 @@ export default function SavingsCompare({ plans }: { plans: Plan[] }) {
               </p>
             </div>
 
-            <SurrenderValueChart plans={visiblePlans} />
+            <SurrenderValueChart
+              plans={visiblePlans}
+              title={selectedGroup === 'annuity' ? '年金回本走勢' : '儲蓄保回本走勢'}
+            />
+
+            {oneYearPlans.length > 0 && (
+              <SurrenderValueChart
+                plans={oneYearPlans}
+                title="1年供獨立走勢"
+                subtitle="一年供款計劃獨立比較（不與2/5/10年供混合）"
+                badge="1年供"
+              />
+            )}
 
             {/* Early loss */}
             <div className="bg-white rounded-2xl shadow-sm border p-4 space-y-5">

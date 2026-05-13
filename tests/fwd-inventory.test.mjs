@@ -28,7 +28,7 @@ test('FWD SMART inventory backup keeps the expected source counts', () => {
   assert.equal(inventory.products.length, 14);
   assert.equal(inventory.premium_options.length, 57);
   assert.equal(inventory.quote_matrix.length, 135);
-  assert.equal(inventory.benefit_values.length, 1019);
+  assert.equal(inventory.benefit_values.length, 1235);
   assert.equal(inventory.extraction_qa.length, 28);
   assert.equal(inventory.standard_comparison.length, 50);
   assert.equal(inventory.all_40_product_summary.length, 40);

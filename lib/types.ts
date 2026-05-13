@@ -31,6 +31,17 @@ export type Plan = {
     payment_term_years: number;
     total_premium_paid: number;
   };
+  discount_info?: {
+    discount_available: boolean;
+    discount_code?: string | null;
+    discount_description?: string | null;
+    discount_scope?: string | null;
+    premium_before_discount?: number | null;
+    premium_after_discount?: number | null;
+    discount_amount?: number | null;
+    discount_rate_pct?: number | null;
+    discount_currency?: string | null;
+  };
   policy_term: string;
   surrender_value_table: SurrenderRow[];
   xray: {

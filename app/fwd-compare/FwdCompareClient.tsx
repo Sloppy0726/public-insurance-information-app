@@ -62,7 +62,7 @@ function bucketLabel(bucket: string) {
 
 function money(amount: number | null | undefined, currency = 'USD') {
   if (amount == null || Number.isNaN(amount)) return '未有';
-  const digits = Math.abs(amount) >= 1000 ? 0 : 2;
+  const digits = Math.abs(amount - Math.round(amount)) >= 0.005 ? 2 : 0;
   return `${currency} ${amount.toLocaleString('en-US', {
     maximumFractionDigits: digits,
     minimumFractionDigits: digits === 2 ? 2 : 0,
@@ -105,10 +105,37 @@ function targetLabel(row: FwdCompareRow) {
   return '未定 budget';
 }
 
+function quoteBasisLabel(row: FwdCompareRow) {
+  if (row.requestedInputType === 'premium') return '保費輸入 quote';
+  if (row.requestedInputType === 'sum_insured') {
+    return row.actualBasisAmount ? `固定保額 ${money(row.actualBasisAmount, row.currency)}` : '固定保額 quote';
+  }
+  if (row.requestedInputType === 'notional_amount') {
+    return row.actualBasisAmount ? `固定名義金額 ${money(row.actualBasisAmount, row.currency)}` : '固定名義金額 quote';
+  }
+  return row.requestedInputType ? `${row.requestedInputType.replaceAll('_', ' ')} quote` : 'quote basis 未知';
+}
+
+function isFixedAmountBudgetCheck(row: FwdCompareRow) {
+  return row.comparisonBasisType === 'CONSUMER_PREMIUM_BUDGET'
+    && (row.requestedInputType === 'sum_insured' || row.requestedInputType === 'notional_amount');
+}
+
 function budgetDeltaLabel(row: FwdCompareRow) {
   if (row.budgetDeltaPct == null) return row.comparable ? '同一 basis' : '不可比較';
   const sign = row.budgetDeltaPct > 0 ? '+' : '';
-  return `${sign}${(row.budgetDeltaPct * 100).toFixed(1)}% vs target`;
+  const delta = `${sign}${(row.budgetDeltaPct * 100).toFixed(1)}% vs target`;
+  if (isFixedAmountBudgetCheck(row)) {
+    return row.comparable ? `固定保額，保費接近 budget (${delta})` : `固定保額，未按 budget 反推 (${delta})`;
+  }
+  return delta;
+}
+
+function exclusionLabel(row: FwdCompareRow) {
+  if (isFixedAmountBudgetCheck(row)) {
+    return '呢條係固定保額/名義金額 quote，不是用同一保費重新 quote；要先用目標保費反推保障額，先可以當成同一 budget 比較。';
+  }
+  return row.exclusionReason ?? budgetDeltaLabel(row);
 }
 
 function sourceTone(row: FwdCompareRow) {
@@ -311,12 +338,13 @@ function CompareTable({ rows }: { rows: FwdCompareRow[] }) {
         <p className="text-sm text-slate-500">只顯示同一 consumer budget 或同一保障保額 basis 嘅 rows。</p>
       </div>
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[1080px] border-separate border-spacing-0 text-left text-sm">
+        <table className="w-full min-w-[1220px] border-separate border-spacing-0 text-left text-sm">
           <thead>
             <tr className="text-xs font-semibold uppercase tracking-normal text-slate-500">
               <th className="border-b px-3 py-2">Product</th>
               <th className="border-b px-3 py-2">條件</th>
               <th className="border-b px-3 py-2">Budget basis</th>
+              <th className="border-b px-3 py-2">Quote basis</th>
               <th className="border-b px-3 py-2 text-right">保費</th>
               <th className="border-b px-3 py-2 text-right">總供款</th>
               <th className="border-b px-3 py-2 text-right">10Y</th>
@@ -345,6 +373,14 @@ function CompareTable({ rows }: { rows: FwdCompareRow[] }) {
                   <p className={`mt-1 text-xs font-semibold ${row.budgetFit ? 'text-emerald-700' : 'text-slate-500'}`}>
                     {budgetDeltaLabel(row)}
                   </p>
+                </td>
+                <td className="border-b px-3 py-3">
+                  <p className="font-semibold text-slate-800">{quoteBasisLabel(row)}</p>
+                  {isFixedAmountBudgetCheck(row) && (
+                    <p className="mt-1 text-xs leading-relaxed text-amber-700">
+                      保費只係對照 budget；呢行唔代表已用目標保費反推。
+                    </p>
+                  )}
                 </td>
                 <td className="border-b px-3 py-3 text-right font-semibold">{premiumLabel(row)}</td>
                 <td className="border-b px-3 py-3 text-right font-semibold">{money(row.totalPremiumPaid, row.currency)}</td>
@@ -376,8 +412,8 @@ function ExcludedRows({ rows }: { rows: FwdCompareRow[] }) {
   return (
     <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
       <div className="mb-3 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-        <h2 className="text-lg font-black text-slate-950">不可直接比較</h2>
-        <p className="text-sm text-slate-500">以下 rows 未符合 consumer budget target，所以唔放入比較表。</p>
+        <h2 className="text-lg font-black text-slate-950">需要重 quote / 不可直接比較</h2>
+        <p className="text-sm text-slate-500">以下 rows 係真 quote，但未係同一保費 basis，所以唔放入比較表。</p>
       </div>
       <div className="grid gap-2 md:grid-cols-2">
         {rows.map(row => (
@@ -386,11 +422,12 @@ function ExcludedRows({ rows }: { rows: FwdCompareRow[] }) {
               <div>
                 <p className="font-black text-slate-900">{row.productNameZh}</p>
                 <p className="mt-1 text-xs text-slate-500">{bucketLabel(row.comparisonBucket)} · {targetLabel(row)}</p>
+                <p className="mt-1 text-xs font-semibold text-slate-600">{quoteBasisLabel(row)}</p>
               </div>
               <p className="shrink-0 text-right font-semibold text-slate-800">{premiumLabel(row)}</p>
             </div>
             <p className="mt-2 text-xs leading-relaxed text-amber-700">
-              {row.exclusionReason ?? budgetDeltaLabel(row)}
+              {exclusionLabel(row)}
             </p>
           </div>
         ))}
@@ -444,7 +481,7 @@ export default function FwdCompareClient({ rows, stats }: Props) {
               </Link>
               <h1 className="mt-2 text-2xl font-black tracking-normal">FWD 消費者預算比較</h1>
               <p className="mt-1 max-w-3xl text-sm leading-relaxed text-slate-500">
-                Wealth 類產品用消費者供款做 standard：年供 USD 15,600、月供 USD 1,300。做唔到 target 嘅 plan 會排除，避免唔同保費 basis 混埋比較。
+                Wealth 類產品用消費者供款做 standard：年供 USD 15,600、月供 USD 1,300。有啲 row 係固定保額 quote，只係用實際保費對照 budget；唔代表產品一定做唔到同一保費。
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -560,7 +597,7 @@ export default function FwdCompareClient({ rows, stats }: Props) {
           </div>
 
           <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-xs leading-relaxed text-amber-800">
-            重要：wealth 類產品只用消費者 budget 做比較。年供 target = USD 15,600；月供 target = USD 1,300；月供同年供不會互相換算。
+            重要：年供 target = USD 15,600；月供 target = USD 1,300。保費輸入 quote 可以直接比較；固定保額 / 名義金額 quote 要先重 quote 到同一保費，否則只可以當參考。
           </div>
         </section>
 

@@ -97,6 +97,42 @@ In `premium_options`, extract:
 
 The comparison app needs the actual premium from the exact payment mode and payment term. Do not throw away the original mode, and do not use converted monthly/annual equivalents as substitute quote data.
 
+## Standard Capture Criteria (Must Follow)
+
+When the task is for standardized cross-plan comparison, apply a single premium standard consistently across products in the same comparison group. This is mandatory for capture runs that request `standard capture`.
+
+Use this priority:
+
+1. Use the exact criteria values provided by the user for the current run.
+2. If no new override is provided, use the known FWD savings baseline below.
+
+Current default baseline used in this workspace:
+
+- `savings` and `life-savings`
+- single-pay standard premium input: `USD 15,600`
+- monthly standard premium input: `USD 1,300`
+- annual standard premium input: `USD 15,600`
+
+Use the same three standard premium anchors across the 9 comparison buckets:
+
+- `2Y_MONTHLY`, `5Y_MONTHLY`, `10Y_MONTHLY` -> `USD 1,300`
+- `2Y_ANNUAL`, `5Y_ANNUAL`, `10Y_ANNUAL` -> `USD 15,600`
+- `2Y_SINGLE`, `5Y_SINGLE`, `10Y_SINGLE` -> `USD 15,600`
+
+Execution rules:
+
+- Always quote using premium input first when the portal supports premium-input mode.
+- Do not normalize by sum insured. Sum insured may differ by product; premium standard must remain fixed.
+- For out-of-scope or forced-minimum cases, keep the `actual_premium` returned by portal/PDF, but also keep comparison on the same standard premium basis (`target_premium` and `target_total_premium`) so rows stay comparable.
+- If a product/category uses a different monthly standard requested by the user (for example protection/CI monthly standard such as `USD 100`), record and apply that exact amount uniformly for that group.
+- Never derive monthly from annual, or annual from monthly, as a substitute quote. Capture each mode directly from the portal/PDF.
+- If a standard bucket is unavailable for that product, mark it explicitly (`NOT_OFFERED`, `NOT_STANDARD_TERM_IN_PORTAL`, or equivalent) instead of filling with converted values.
+
+Traceability requirements:
+
+- Save the applied standard amounts in extraction notes/QA for each batch run.
+- Keep both `target_*` (standard basis) and `actual_*` (real quote result) fields when they differ.
+
 ## Discount Fields
 
 Discount extraction is mandatory for annual pay and full-pay/single-pay variants. If the PDF, portal output, brochure, or illustration mentions any discount, rebate, modal factor, prepayment discount, promotion, loyalty discount, or full-pay concession, capture it in `premium_options`.
@@ -265,6 +301,67 @@ Use `qa_status`: `ok`, `needs_review`, or `blocked`.
 
 The app should only rank rows with `qa_status = ok` or carefully labelled `needs_review`. Never rank `blocked`.
 
+## Portal SOP
+
+Prefer portal capture over PDF capture when the portal exposes the required quote and value tables clearly enough.
+
+Portal sequence for this workspace:
+
+1. Reuse an authenticated session if it still works.
+2. Capture live portal values first.
+3. Use PDF download only when the live UI does not expose the needed values cleanly.
+4. Save a QA note whenever the live session blocks continuation, expires, or discards form state.
+
+### FWD first
+
+For FWD runs in this repo:
+
+1. Prefer premium-input mode.
+2. Apply the current standard basis for the category.
+3. Capture each available bucket directly from the UI.
+4. Record annual-pay or full-pay discount wording separately from the standardized comparison premium.
+5. Extract yearly tables, break-even, guaranteed values, non-guaranteed values, and 10/20/30-year milestones.
+
+### BOC second
+
+For BOC runs in this repo:
+
+1. `新增建議書`
+2. confirm applicant / insured
+3. Step 2 `設計險種`
+4. choose category and product
+5. open `險種信息`
+6. set currency
+7. set payment mode
+8. set payment-term unit and payment term
+9. set coverage-term unit and coverage term
+10. input standard premium
+11. confirm total premium updates
+12. continue to proposal results and extract values from the portal before using PDF fallback
+
+As of `2026-05-12`, `精選目標五年保險計劃` (`IBE65`) was confirmed in the live session with:
+
+- currency `人民幣`
+- payment mode `年繳`
+- payment term `2`
+- coverage term `5`
+- basic premium `15600`
+- displayed total premium `人民幣 15600`
+
+The modal accepted those values but did not advance cleanly in the captured desktop session, and closing the modal discarded the state. Record that condition as a `blocked` QA row instead of pretending the quote was completed.
+
+For avoidance of doubt in BOC capture notes:
+
+- standard comparison target for single-pay remains `USD 15,600` unless the user overrides it
+- standard comparison target remains `USD 15,600` annual and `USD 1,300` monthly unless the user overrides it
+- if the live BOC portal session only exposes `人民幣`, record the portal quote as actual `RMB` while keeping the comparison target in `USD`
+
+## Session / Login Handling
+
+- Reuse the existing live session whenever possible.
+- If the portal expires, restart from the insurer landing flow and record the interruption in QA.
+- If login requires password, OTP, ADFS, or any human-only step, stop and record a blocker.
+
 ## Comparison Selection Rules
 
 For comparison pages:
@@ -291,3 +388,9 @@ For comparison pages:
 11. Only then import into the app/database.
 
 Do not collapse monthly, annual, full-pay/single premium, 2-year pay, 5-year pay, and 10-year pay into one field. Keep original quote values, bucket IDs, and discount evidence.
+
+## Category Guardrails
+
+- Savings / life-savings: capture surrender, guaranteed, non-guaranteed, break-even, and milestone values.
+- Medical / VHIS: do not assume there is no savings component; check for cash value, surrender value, maturity value, refund-of-premium language, or any policy value table.
+- Critical illness / life: if any cash value or surrender table exists, populate `benefit_values` as well instead of treating the product as pure protection only.

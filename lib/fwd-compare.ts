@@ -135,6 +135,12 @@ const PROTECTION_CATEGORIES = new Set(['critical-illness', 'life']);
 const TARGET_ANNUAL_PREMIUM = 15600;
 const TARGET_MONTHLY_PREMIUM = 1300;
 const BUDGET_TOLERANCE_PCT = 0.1;
+const NON_COMPARABLE_STANDARD_STATUSES = new Set([
+  'NEEDS_PDF_CAPTURE',
+  'PORTAL_SEEN_NOT_ARCHIVED',
+  'NOT_OFFERED_IN_PORTAL',
+  'NOT_STANDARD_TERM_IN_PORTAL',
+]);
 const SINGLE_TOTAL_BUDGETS: Record<string, number> = {
   '2Y_SINGLE': TARGET_ANNUAL_PREMIUM * 2,
   '5Y_SINGLE': TARGET_ANNUAL_PREMIUM * 5,
@@ -246,6 +252,10 @@ function targetForConsumerBudget(row: StandardComparisonRow) {
 function classifyComparisonBasis(row: StandardComparisonRow) {
   const category = row.category ?? 'unknown';
   const premiumAmount = asNumber(row.premium_amount);
+  const requestedInputType = row.requested_input_type ?? 'unknown';
+  const unavailableReason = row.can_form_standard_cohort === false || NON_COMPARABLE_STANDARD_STATUSES.has(row.standard_status ?? '')
+    ? 'This standard row is not comparable yet because the quote does not have a confirmed PDF archive.'
+    : null;
 
   if (WEALTH_CATEGORIES.has(category)) {
     const target = targetForConsumerBudget(row);
@@ -262,6 +272,24 @@ function classifyComparisonBasis(row: StandardComparisonRow) {
         budgetFit: false,
         comparable: false,
         exclusionReason: 'No consumer budget target is defined for this payment bucket.',
+      };
+    }
+
+    if (unavailableReason) {
+      const budgetMeasureAmount = target.budgetMeasureAmount;
+      const budgetDeltaAmount = budgetMeasureAmount == null ? null : budgetMeasureAmount - targetAmount;
+      const budgetDeltaPct = budgetDeltaAmount == null ? null : budgetDeltaAmount / targetAmount;
+
+      return {
+        comparisonBasisType: 'CONSUMER_PREMIUM_BUDGET' as const,
+        targetPremiumAmount: target.targetPremiumAmount,
+        targetTotalPremiumPaid: target.targetTotalPremiumPaid,
+        budgetMeasureAmount,
+        budgetDeltaAmount,
+        budgetDeltaPct,
+        budgetFit: false,
+        comparable: false,
+        exclusionReason: unavailableReason,
       };
     }
 
@@ -282,6 +310,11 @@ function classifyComparisonBasis(row: StandardComparisonRow) {
     const budgetDeltaAmount = target.budgetMeasureAmount - targetAmount;
     const budgetDeltaPct = budgetDeltaAmount / targetAmount;
     const budgetFit = Math.abs(budgetDeltaPct) <= BUDGET_TOLERANCE_PCT;
+    const deltaText = `${(budgetDeltaPct * 100).toFixed(1)}%`;
+    const isFixedAmountQuote = requestedInputType === 'sum_insured' || requestedInputType === 'notional_amount';
+    const exclusionReason = isFixedAmountQuote
+      ? `Captured as a fixed ${requestedInputType.replaceAll('_', ' ')} quote, not a premium-target quote. Actual premium is ${deltaText} away from the consumer budget target; re-quote by premium before treating it as same-budget comparable.`
+      : `Premium is ${deltaText} away from the consumer budget target.`;
 
     return {
       comparisonBasisType: 'CONSUMER_PREMIUM_BUDGET' as const,
@@ -292,9 +325,7 @@ function classifyComparisonBasis(row: StandardComparisonRow) {
       budgetDeltaPct,
       budgetFit,
       comparable: budgetFit,
-      exclusionReason: budgetFit
-        ? null
-        : `Premium is ${(budgetDeltaPct * 100).toFixed(1)}% away from the consumer budget target.`,
+      exclusionReason: budgetFit ? null : exclusionReason,
     };
   }
 

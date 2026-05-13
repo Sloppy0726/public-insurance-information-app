@@ -1,0 +1,69 @@
+{
+  "generatedAt": "2026-05-12",
+  "source": "data/boc/boc-life-portal-products-2026-05-11.json + data/boc/boc-life-portal-ui-summary-2026-05-11.json",
+  "groups": [
+    {
+      "category": "儲蓄壽險",
+      "normalizedCategory": "savings_or_life_savings",
+      "products": [
+        {
+          "code": "IBW65",
+          "name": "薪火傳承環球終身壽險計劃"
+        },
+        {
+          "code": "IBW66",
+          "name": "鑄富世代環球終身壽險計劃"
+        },
+        {
+          "code": "IBW69",
+          "name": "薪粹傳承環球終身保險計劃"
+        },
+        {
+          "code": "IBE66",
+          "name": "守躍保險計劃"
+        },
+        {
+          "code": "IBN12",
+          "name": "目標三年保險計劃"
+        }
+      ]
+    },
+    {
+      "category": "年金計劃",
+      "normalizedCategory": "annuity",
+      "products": [
+        {
+          "code": "IBN13",
+          "name": "非凡即享年金計劃"
+        },
+        {
+          "code": "IBN14",
+          "name": "中銀人壽延期年金計劃(固定年期)"
+        },
+        {
+          "code": "IBN15",
+          "name": "中銀人壽延期年金計劃(終身)"
+        }
+      ]
+    },
+    {
+      "category": "危疾保險",
+      "normalizedCategory": "critical_illness",
+      "products": [
+        {
+          "code": "IBC10",
+          "name": "守護未來終身壽險計劃"
+        },
+        {
+          "code": "IBC11",
+          "name": "危疾188終身壽險計劃",
+          "alias": "CI188"
+        }
+      ]
+    }
+  ],
+  "classificationNotes": [
+    "守護未來終身壽險計劃 (IBC10) is listed under 危疾保險 in portal metadata, not under 儲蓄壽險.",
+    "If user wants 守護未來 included in standard run, place it in CI group and apply CI standard fields with savings-component check."
+  ]
+}

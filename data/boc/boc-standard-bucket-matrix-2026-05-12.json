@@ -1,0 +1,971 @@
+{
+  "generatedAt": "2026-05-12",
+  "standardBasis": {
+    "currency": "USD",
+    "monthly": 1300,
+    "annual": 15600,
+    "single": 15600
+  },
+  "note": "Single bucket still requires explicit 一次性供款/一次性繳付 wording in proposal per current user rule.",
+  "products": [
+    {
+      "productCode": "IBW66",
+      "productNameZh": "鑄富世代環球終身壽險計劃",
+      "category": "終身壽險",
+      "sourceHasLiveOptions": true,
+      "liveOptionsSummary": {
+        "currency": [
+          "人民幣",
+          "港幣",
+          "美元"
+        ],
+        "payModes": [
+          "月繳",
+          "季繳",
+          "半年繳",
+          "年繳"
+        ],
+        "payTerms": [
+          "5"
+        ],
+        "coverageTerms": [
+          "終身"
+        ]
+      },
+      "buckets": [
+        {
+          "bucket": "2Y_MONTHLY",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "2Y_ANNUAL",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "2Y_SINGLE",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_MONTHLY",
+          "offeredInLiveOptions": true,
+          "status": "PROPOSAL_GENERATED",
+          "qaStatus": "partial_complete",
+          "actualPremium": 1299.99,
+          "targetPremium": 1300,
+          "blocker": null,
+          "sourceFile": "boc-ibw66-5y-monthly-proposal-2026-05-13.json"
+        },
+        {
+          "bucket": "5Y_ANNUAL",
+          "offeredInLiveOptions": true,
+          "status": "PROPOSAL_GENERATED",
+          "qaStatus": "complete",
+          "actualPremium": 15600,
+          "targetPremium": 15600,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_SINGLE",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_MONTHLY",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_ANNUAL",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_SINGLE",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        }
+      ]
+    },
+    {
+      "productCode": "IBW69",
+      "productNameZh": "薪粹傳承環球終身保險計劃",
+      "category": "終身壽險",
+      "sourceHasLiveOptions": true,
+      "liveOptionsSummary": {
+        "currency": [
+          "人民幣",
+          "英鎊",
+          "港幣",
+          "美元",
+          "新加坡元",
+          "加元",
+          "澳元",
+          "歐羅"
+        ],
+        "payModes": [
+          "躉繳",
+          "月繳",
+          "季繳",
+          "半年繳",
+          "年繳"
+        ],
+        "payTerms": [
+          "2",
+          "3",
+          "5",
+          "10"
+        ],
+        "coverageTerms": [
+          "終身"
+        ]
+      },
+      "buckets": [
+        {
+          "bucket": "2Y_MONTHLY",
+          "offeredInLiveOptions": true,
+          "status": "PENDING_PORTAL_CAPTURE",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "2Y_ANNUAL",
+          "offeredInLiveOptions": true,
+          "status": "PENDING_PORTAL_CAPTURE",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "2Y_SINGLE",
+          "offeredInLiveOptions": true,
+          "status": "PENDING_PORTAL_CAPTURE",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_MONTHLY",
+          "offeredInLiveOptions": true,
+          "status": "PENDING_PORTAL_CAPTURE",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_ANNUAL",
+          "offeredInLiveOptions": true,
+          "status": "PENDING_PORTAL_CAPTURE",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_SINGLE",
+          "offeredInLiveOptions": true,
+          "status": "PENDING_PORTAL_CAPTURE",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_MONTHLY",
+          "offeredInLiveOptions": true,
+          "status": "PENDING_PORTAL_CAPTURE",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_ANNUAL",
+          "offeredInLiveOptions": true,
+          "status": "PENDING_PORTAL_CAPTURE",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_SINGLE",
+          "offeredInLiveOptions": true,
+          "status": "PENDING_PORTAL_CAPTURE",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        }
+      ]
+    },
+    {
+      "productCode": "IBE66",
+      "productNameZh": "守躍保險計劃",
+      "category": "儲蓄壽險",
+      "sourceHasLiveOptions": true,
+      "liveOptionsSummary": {
+        "currency": [
+          "人民幣",
+          "港幣",
+          "美元"
+        ],
+        "payModes": [
+          "年繳"
+        ],
+        "payTerms": [
+          "2"
+        ],
+        "coverageTerms": [
+          "8"
+        ]
+      },
+      "buckets": [
+        {
+          "bucket": "2Y_MONTHLY",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "2Y_ANNUAL",
+          "offeredInLiveOptions": true,
+          "status": "PENDING_PORTAL_CAPTURE",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "2Y_SINGLE",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_MONTHLY",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_ANNUAL",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_SINGLE",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_MONTHLY",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_ANNUAL",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_SINGLE",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        }
+      ]
+    },
+    {
+      "productCode": "IBN12",
+      "productNameZh": "目標三年保險計劃",
+      "category": "儲蓄壽險",
+      "sourceHasLiveOptions": true,
+      "liveOptionsSummary": {
+        "currency": [
+          "人民幣",
+          "美元"
+        ],
+        "payModes": [
+          "年繳"
+        ],
+        "payTerms": [
+          "2"
+        ],
+        "coverageTerms": [
+          "3"
+        ]
+      },
+      "buckets": [
+        {
+          "bucket": "2Y_MONTHLY",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "2Y_ANNUAL",
+          "offeredInLiveOptions": true,
+          "status": "PENDING_PORTAL_CAPTURE",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "2Y_SINGLE",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_MONTHLY",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_ANNUAL",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_SINGLE",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_MONTHLY",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_ANNUAL",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_SINGLE",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        }
+      ]
+    },
+    {
+      "productCode": "IBC10",
+      "productNameZh": "守護未來終身壽險計劃",
+      "category": "危疾保險",
+      "sourceHasLiveOptions": false,
+      "liveOptionsSummary": null,
+      "buckets": [
+        {
+          "bucket": "2Y_MONTHLY",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "2Y_ANNUAL",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "2Y_SINGLE",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_MONTHLY",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_ANNUAL",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_SINGLE",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_MONTHLY",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_ANNUAL",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_SINGLE",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        }
+      ]
+    },
+    {
+      "productCode": "IBN13",
+      "productNameZh": "非凡即享年金計劃",
+      "category": "年金計劃",
+      "sourceHasLiveOptions": true,
+      "liveOptionsSummary": {
+        "currency": [
+          "人民幣",
+          "港幣",
+          "美元"
+        ],
+        "payModes": [
+          "躉繳"
+        ],
+        "payTerms": [],
+        "coverageTerms": [
+          "25年",
+          "終身"
+        ]
+      },
+      "buckets": [
+        {
+          "bucket": "2Y_MONTHLY",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "2Y_ANNUAL",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "2Y_SINGLE",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_MONTHLY",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_ANNUAL",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_SINGLE",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_MONTHLY",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_ANNUAL",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_SINGLE",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        }
+      ]
+    },
+    {
+      "productCode": "IBN14",
+      "productNameZh": "中銀人壽延期年金計劃(固定年期)",
+      "category": "年金計劃",
+      "sourceHasLiveOptions": true,
+      "liveOptionsSummary": {
+        "currency": [
+          "人民幣",
+          "港幣",
+          "美元"
+        ],
+        "payModes": [
+          "月繳",
+          "季繳",
+          "半年繳",
+          "年繳"
+        ],
+        "payTerms": [
+          "5"
+        ],
+        "coverageTerms": [
+          "15",
+          "20",
+          "25",
+          "30"
+        ]
+      },
+      "buckets": [
+        {
+          "bucket": "2Y_MONTHLY",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "2Y_ANNUAL",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "2Y_SINGLE",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_MONTHLY",
+          "offeredInLiveOptions": true,
+          "status": "PENDING_PORTAL_CAPTURE",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_ANNUAL",
+          "offeredInLiveOptions": true,
+          "status": "PENDING_PORTAL_CAPTURE",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_SINGLE",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_MONTHLY",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_ANNUAL",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_SINGLE",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        }
+      ]
+    },
+    {
+      "productCode": "IBN15",
+      "productNameZh": "中銀人壽延期年金計劃(終身)",
+      "category": "年金計劃",
+      "sourceHasLiveOptions": true,
+      "liveOptionsSummary": {
+        "currency": [
+          "人民幣",
+          "港幣",
+          "美元"
+        ],
+        "payModes": [
+          "月繳",
+          "季繳",
+          "半年繳",
+          "年繳"
+        ],
+        "payTerms": [
+          "5",
+          "10"
+        ],
+        "coverageTerms": [
+          "終身"
+        ]
+      },
+      "buckets": [
+        {
+          "bucket": "2Y_MONTHLY",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "2Y_ANNUAL",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "2Y_SINGLE",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_MONTHLY",
+          "offeredInLiveOptions": true,
+          "status": "PENDING_PORTAL_CAPTURE",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_ANNUAL",
+          "offeredInLiveOptions": true,
+          "status": "PENDING_PORTAL_CAPTURE",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_SINGLE",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_MONTHLY",
+          "offeredInLiveOptions": true,
+          "status": "PENDING_PORTAL_CAPTURE",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_ANNUAL",
+          "offeredInLiveOptions": true,
+          "status": "PENDING_PORTAL_CAPTURE",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_SINGLE",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        }
+      ]
+    },
+    {
+      "productCode": "IBC11",
+      "productNameZh": "危疾188終身壽險計劃",
+      "category": "危疾保險",
+      "sourceHasLiveOptions": true,
+      "liveOptionsSummary": {
+        "currency": [
+          "人民幣",
+          "港幣",
+          "美元"
+        ],
+        "payModes": [
+          "月繳",
+          "季繳",
+          "半年繳",
+          "年繳"
+        ],
+        "payTerms": [
+          "10",
+          "20",
+          "25"
+        ],
+        "coverageTerms": [
+          "終身"
+        ]
+      },
+      "buckets": [
+        {
+          "bucket": "2Y_MONTHLY",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "2Y_ANNUAL",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "2Y_SINGLE",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_MONTHLY",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_ANNUAL",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "5Y_SINGLE",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_MONTHLY",
+          "offeredInLiveOptions": true,
+          "status": "PENDING_PORTAL_CAPTURE",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_ANNUAL",
+          "offeredInLiveOptions": true,
+          "status": "PENDING_PORTAL_CAPTURE",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        },
+        {
+          "bucket": "10Y_SINGLE",
+          "offeredInLiveOptions": false,
+          "status": "NOT_OFFERED_IN_LIVE_OPTIONS",
+          "qaStatus": null,
+          "actualPremium": null,
+          "targetPremium": null,
+          "blocker": null
+        }
+      ]
+    }
+  ]
+}
